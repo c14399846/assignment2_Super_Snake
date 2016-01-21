@@ -42,8 +42,9 @@ import java.util.*;//used for setSize function
 import controlP5.*;//used for buttons
 
 //menu system
+boolean play = false;
 boolean menu = true;
-boolean mode = true;
+boolean mode = false;
 
 //mode system
 boolean easy = false;
@@ -54,7 +55,7 @@ boolean xtrm = false;
 //game status
 //this is for the wall system, game over if you die, other
 boolean gameOver = false;
-boolean game0 = true;
+boolean game0 = true;//where there are no walls
 boolean game1 = false;
 boolean game2 = false;
 
@@ -71,6 +72,7 @@ ArrayList<Integer> snakeY = new ArrayList<Integer>();
 ControlP5 controlP5;
 
 //Main menu buttons
+controlP5.Button play_button;
 controlP5.Button menu_button;
 controlP5.Button mode_button;
 
@@ -85,28 +87,96 @@ void setup()
   surface.setSize(initHeight,initWidth);
   controlP5 = new ControlP5(this); //button class
   
-  menu();
-  
-}
-
-//just setting up. positions not set yet. will do later in refinements
-void menu()
-{
+  play_button = controlP5.addButton("Play" ,1,initWidth/2,initHeight/2,100,75);
   menu_button = controlP5.addButton("Main Menu" ,1,initWidth/2,initHeight/2,100,75);
   mode_button = controlP5.addButton("Game Mode" ,1,initWidth/2,initHeight/2,100,75);
   
-  easy_button = controlP5.addButton("Easy" ,1,initWidth/2,initHeight/2,100,75);
-  norm_button = controlP5.addButton("Normal" ,1,initWidth/2,initHeight/2,100,75);
-  hard_button = controlP5.addButton("Hard" ,1,initWidth/2,initHeight/2,100,75);
-  xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2,100,75);
+  easy_button = controlP5.addButton("Easy" ,1,initWidth/2,initHeight/2,100,100);
+  norm_button = controlP5.addButton("Normal" ,1,initWidth/2,initHeight/2,100,125);
+  hard_button = controlP5.addButton("Hard" ,1,initWidth/2,initHeight/2,100,150);
+  xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2,100,175);
   
+  
+}
+
+
+//button system for the game
+void controlEvent(ControlEvent buttonPressed)
+{
+  if(buttonPressed.controller().getName().equals("Main Menu")){
+    menu = true;
+  }
+  
+  if(buttonPressed.controller().getName().equals("Game Mode")){
+    mode = true;
+  }
+  
+  if(buttonPressed.controller().getName().equals("Easy")){
+    mode = true;
+  }  
+  
+  if(buttonPressed.controller().getName().equals("Normal")){
+    mode = true;
+  }  
+  
+  if(buttonPressed.controller().getName().equals("Hard")){
+    mode = true;
+  }  
+  
+  if(buttonPressed.controller().getName().equals("Extreme")){
+    mode = true;
+  }  
+}
+
+//at start of program you are shown the menu system, game difficulty and menu return are hidden until needed
+void menu()
+{
+  menu_button.hide();
+  
+  easy_button.hide();
+  norm_button.hide();
+  hard_button.hide();
+  xtrm_button.hide();
+  
+  play_button.show();
+  mode_button.show();
+
+  //the game requires you to choose a difficulty to play, resets to false at end of game
+  mode = false;
+  easy = false;
+  norm = false;
+  hard = false;
+  xtrm = false;
+  
+}
+
+void gameMode()
+{
+    menu = false;
+    
+    mode_button.hide();
+    
+    menu_button.show();
+    easy_button.show();
+    norm_button.show();
+    hard_button.show();
+    xtrm_button.show();
   
 }
 
 
 void draw()
 {
-  background();
   frameRate(fps);
   
+  if(menu == true){
+    background(0);
+    menu(); 
+  }
+  
+  if(mode == true){  
+    background(0);
+    gameMode();
+  }
+   
 }
