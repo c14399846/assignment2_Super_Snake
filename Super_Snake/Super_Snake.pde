@@ -87,16 +87,14 @@ void setup()
   surface.setSize(initHeight,initWidth);
   controlP5 = new ControlP5(this); //button class
   
-  play_button = controlP5.addButton("Play" ,1,initWidth/2,initHeight/2,100,75);
   menu_button = controlP5.addButton("Main Menu" ,1,initWidth/2,initHeight/2,100,75);
-  mode_button = controlP5.addButton("Game Mode" ,1,initWidth/2,initHeight/2,100,75);
+  play_button = controlP5.addButton("Play" ,1,initWidth/2,initHeight/2 - 75,100,75);
+  mode_button = controlP5.addButton("Game Mode" ,1,initWidth/2,initHeight/2 - 150,100,75);
   
-  easy_button = controlP5.addButton("Easy" ,1,initWidth/2,initHeight/2,100,100);
-  norm_button = controlP5.addButton("Normal" ,1,initWidth/2,initHeight/2,100,125);
-  hard_button = controlP5.addButton("Hard" ,1,initWidth/2,initHeight/2,100,150);
-  xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2,100,175);
-  
-  
+  easy_button = controlP5.addButton("Easy" ,1,initWidth/2,initHeight/2 - 75,100,75);
+  norm_button = controlP5.addButton("Normal" ,1,initWidth/2,initHeight/2 - 150,100,75);
+  hard_button = controlP5.addButton("Hard" ,1,initWidth/2,initHeight/2 - 225,100,75);
+  xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
 }
 
 
@@ -108,23 +106,24 @@ void controlEvent(ControlEvent buttonPressed)
   }
   
   if(buttonPressed.controller().getName().equals("Game Mode")){
+    menu = false;
     mode = true;
   }
   
   if(buttonPressed.controller().getName().equals("Easy")){
-    mode = true;
+    easy = true;
   }  
   
   if(buttonPressed.controller().getName().equals("Normal")){
-    mode = true;
+    norm = true;
   }  
   
   if(buttonPressed.controller().getName().equals("Hard")){
-    mode = true;
+    hard = true;
   }  
   
   if(buttonPressed.controller().getName().equals("Extreme")){
-    mode = true;
+    xtrm = true;
   }  
 }
 
@@ -152,9 +151,8 @@ void menu()
 
 void gameMode()
 {
-    menu = false;
-    
     mode_button.hide();
+    play_button.hide();
     
     menu_button.show();
     easy_button.show();
