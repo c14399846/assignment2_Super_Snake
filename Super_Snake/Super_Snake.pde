@@ -94,7 +94,7 @@ void setup()
   snakeX.add(60);
   snakeY.add(60);
   
-  Snake snake  = new Snake(snakeX.get(0),snakeY.get(0));
+  snake  = new Snake(snakeX.get(0),snakeY.get(0));
   
   
   
@@ -114,6 +114,8 @@ void setup()
   xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
   */
 }
+
+Snake snake;
 
 
 //button system for the game
@@ -197,6 +199,11 @@ void draw()
     gameMode();
   }
   */
+  
+  
+  // will be moved later, into a switch statement or otherwise into menu system *****
+  snake.update();
+  snake.render();
   
   
   
