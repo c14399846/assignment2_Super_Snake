@@ -59,9 +59,11 @@ boolean game0 = true;//where there are no walls
 boolean game1 = false;
 boolean game2 = false;
 
-int initHeight = 1200;
-int initWidth = 1200;
+int initHeight = 600;/* ***** CHANGE TO 1200 FOR DEMO ***** */
+int initWidth = 600;
 int fps = 60;
+int snakeSize = 60; // or 30, whatever will fit into the overall game x and y ********
+int difficulty = 1; /* ***** CHANGE TO 0 AFTER BUTTONS ARE RE-ENABLED ***** */
 
 int score = 0;
 
@@ -85,6 +87,21 @@ controlP5.Button xtrm_button;
 void setup()
 {
   surface.setSize(initHeight,initWidth);
+  frameRate(fps*difficulty);
+  
+  //each blocksize of the snake or powerups will be be 60 or 30 pixels, THE PLACE WHERE IT'S INITIATED MAY BE MOVED LATER ON, INTO IT'S OWN CLASS *****
+  //this is just the snakes first position; at 60,60
+  snakeX.add(60);
+  snakeY.add(60);
+  
+  Snake snake  = new Snake(snakeX.get(0),snakeY.get(0));
+  
+  
+  
+  
+  
+  /*
+  ***** will be added back in later, after game runs fine on its own*****
   controlP5 = new ControlP5(this); //button class
   
   menu_button = controlP5.addButton("Main Menu" ,1,initWidth/2,initHeight/2,100,75);
@@ -95,6 +112,7 @@ void setup()
   norm_button = controlP5.addButton("Normal" ,1,initWidth/2,initHeight/2 - 150,100,75);
   hard_button = controlP5.addButton("Hard" ,1,initWidth/2,initHeight/2 - 225,100,75);
   xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
+  */
 }
 
 
@@ -166,7 +184,9 @@ void gameMode()
 void draw()
 {
   frameRate(fps);
-  
+  background(0);
+  /*
+  ***** removed just for testing purposes, will be added back in after game runs fine *****
   if(menu == true){
     background(0);
     menu(); 
@@ -176,5 +196,11 @@ void draw()
     background(0);
     gameMode();
   }
-   
+  */
+  
+  
+  
+  
+  
+  
 }
