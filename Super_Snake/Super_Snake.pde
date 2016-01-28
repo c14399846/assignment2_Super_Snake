@@ -62,7 +62,9 @@ boolean game2 = false;
 int initHeight = 600;/* ***** CHANGE TO 1200 FOR DEMO ***** */
 int initWidth = 600;
 int fps = 60;
-int snakeSize = 60; // or 30, whatever will fit into the overall game x and y ********
+int snakeSize = 30; // or 30, whatever will fit into the overall game x and y ********
+int snakeHeadCurv = 5;// curvature of snakes head
+int snakeBodyCurv = 10;// curvature of snakes body
 int difficulty = 1; /* ***** CHANGE TO 0 AFTER BUTTONS ARE RE-ENABLED ***** */
 
 int score = 0;
@@ -199,7 +201,6 @@ void draw()
     gameMode();
   }
   */
-  
   
   // will be moved later, into a switch statement or otherwise into menu system *****
   snake.update();
