@@ -13,15 +13,23 @@ class Snake extends GameObjects
    Snake(int x,int y)
    {
      pos = new PVector(snakeX.get(0),snakeY.get(0));
-     moveX = new PVector();//need to figure out how to do fourway movement *****
-     moveY = new PVector();
+     /*moveX = new PVector();//need to figure out how to do fourway movement *****
+     moveY = new PVector();*/
    }
    
    void update()
    {
      //need to add movement code here first
      
-     rect(pos.x,pos.y,snakeSize,snakeSize);
+    // rect(pos.x,pos.y,snakeSize,snakeSize);
+     rect(snakeX.get(0),snakeY.get(0),snakeSize,snakeSize);
+     
+     for(int i = 0;i < snakeX.size(); i++)
+     {
+       rect(snakeX.get(i),snakeY.get(i),snakeSize,snakeSize);
+     }
+     
+     
      //keypressed is initially used, as you only want one key to be pressed at a time
      //might change to other key system, depending on gameplay
      

@@ -93,12 +93,13 @@ void setup()
   
   //each blocksize of the snake or powerups will be be 60 or 30 pixels, THE PLACE WHERE IT'S INITIATED MAY BE MOVED LATER ON, INTO IT'S OWN CLASS *****
   //this is just the snakes first position; at 60,60
-  snakeX.add(60);
-  snakeY.add(60);
+  
+  //adds first 4 snake body parts to the arraylist
+  for(int i =0;i<5;i++){snakeX.add(30);snakeY.add(30);}
+  //snakeX.add(30);
+  //snakeY.add(30);
   
   snake  = new Snake(snakeX.get(0),snakeY.get(0));
-  
-  
   
   
   
