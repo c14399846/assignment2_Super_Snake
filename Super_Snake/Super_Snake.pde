@@ -59,13 +59,16 @@ boolean game0 = true;//where there are no walls
 boolean game1 = false;
 boolean game2 = false;
 
+
+
 int initHeight = 600;/* ***** CHANGE TO 1200 FOR DEMO ***** */
-int initWidth = 1200;
+int initWidth = 600;
 int fps = 60;
 int snakeSize = 30; //snakes  width and height
 int snakeHeadCurv = 5;// curvature of snakes head
 int snakeBodyCurv = 10;// curvature of snakes body
-int difficulty = 2; /* ***** CHANGE TO 0 AFTER BUTTONS ARE RE-ENABLED ***** */
+int difficulty = 3; /* ***** CHANGE TO 0 AFTER BUTTONS ARE RE-ENABLED, 3 is easiest,1 is hardest ***** */
+
 
 int score = 0;
 
@@ -95,16 +98,20 @@ controlP5.Button norm_button;
 controlP5.Button hard_button;
 controlP5.Button xtrm_button;
 
-Snake snake ;
+Snake snake;
+PShape snakeParts;
 
 
 void setup()
 {
   surface.setSize(initWidth,initHeight);
+  smooth(8);
   //fullScreen();
   
+  snakeParts = createShape(RECT, 0, 0, 30, 30);  
   //each blocksize of the snake or powerups will be be 60 or 30 pixels, THE PLACE WHERE IT'S INITIATED MAY BE MOVED LATER ON, INTO IT'S OWN CLASS *****
-  //this is just the snakes first position; at 60,60
+  //this is just the snakes first position
+  
   
   //adds first 4 snake body parts to the arraylist
   for(int i =0;i<5;i++){snakeX.add(6);snakeY.add(6);}
@@ -196,7 +203,8 @@ void gameMode()
 
 void draw()
 {
-  frameRate(fps*difficulty);
+  frameRate(fps);
+  //need to increase speed in another way
   background(0);
   /*
   ***** removed just for testing purposes, will be added back in after game runs fine *****
