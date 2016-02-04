@@ -60,14 +60,23 @@ boolean game1 = false;
 boolean game2 = false;
 
 int initHeight = 600;/* ***** CHANGE TO 1200 FOR DEMO ***** */
-int initWidth = 600;
+int initWidth = 1200;
 int fps = 60;
-int snakeSize = 30; // or 30, whatever will fit into the overall game x and y ********
+int snakeSize = 30; //snakes  width and height
 int snakeHeadCurv = 5;// curvature of snakes head
 int snakeBodyCurv = 10;// curvature of snakes body
-int difficulty = 1; /* ***** CHANGE TO 0 AFTER BUTTONS ARE RE-ENABLED ***** */
+int difficulty = 2; /* ***** CHANGE TO 0 AFTER BUTTONS ARE RE-ENABLED ***** */
 
 int score = 0;
+
+//dont move, move 'forward', move 'back'
+int[] dirSnake = {0,1,-1};
+//starts snake moving right
+int dir_horiz = dirSnake[1];
+int dir_vertic = dirSnake[0];
+
+color sH = color(0,150,0);
+color sB = color(0,255,0);
 
 ArrayList<Integer> snakeX = new ArrayList<Integer>();
 ArrayList<Integer> snakeY = new ArrayList<Integer>();
@@ -86,20 +95,21 @@ controlP5.Button norm_button;
 controlP5.Button hard_button;
 controlP5.Button xtrm_button;
 
+Snake snake ;
+
+
 void setup()
 {
-  surface.setSize(initHeight,initWidth);
-  frameRate(fps*difficulty);
+  surface.setSize(initWidth,initHeight);
+  //fullScreen();
   
   //each blocksize of the snake or powerups will be be 60 or 30 pixels, THE PLACE WHERE IT'S INITIATED MAY BE MOVED LATER ON, INTO IT'S OWN CLASS *****
   //this is just the snakes first position; at 60,60
   
   //adds first 4 snake body parts to the arraylist
-  for(int i =0;i<5;i++){snakeX.add(30);snakeY.add(30);}
-  //snakeX.add(30);
-  //snakeY.add(30);
+  for(int i =0;i<5;i++){snakeX.add(6);snakeY.add(6);}
   
-  snake  = new Snake(snakeX.get(0),snakeY.get(0));
+  snake  = new Snake();
   
   
   
@@ -117,8 +127,6 @@ void setup()
   xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
   */
 }
-
-Snake snake;
 
 
 //button system for the game
@@ -188,7 +196,7 @@ void gameMode()
 
 void draw()
 {
-  frameRate(fps);
+  frameRate(fps*difficulty);
   background(0);
   /*
   ***** removed just for testing purposes, will be added back in after game runs fine *****
