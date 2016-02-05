@@ -40,6 +40,13 @@ How things are done:
 
 import java.util.*;//used for setSize function
 import controlP5.*;//used for buttons
+import processing.sound.*;//used for playing and loading in soundfiles
+
+/* ******add files later *****
+SoundFile sound_eat;
+Soundfile sound_die;
+Soundfile sound_newGame;
+*/
 
 //menu system
 boolean play = false;
@@ -116,8 +123,7 @@ void setup()
   //adds first 4 snake body parts to the arraylist
   for(int i =0;i<5;i++){snakeX.add(6);snakeY.add(6);}
   
-  snake  = new Snake();
-  
+  snake  = new Snake();  
   
   
   /*
