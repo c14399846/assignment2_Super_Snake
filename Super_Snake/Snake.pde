@@ -1,11 +1,51 @@
 class Snake extends GameObjects
 {
-   char wasd;
+   //char wasd;
   
    Snake()
    {
      
    }
+   
+
+   
+  /*void wasdEyes(int i)
+  {
+     switch (wasd)
+     {
+       case 'w':
+         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,5,0,0); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (2),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (2),6,10 ); fill(sH);
+         break;
+       case 'W':
+         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,5,0,0); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (2),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (2),6,10 ); fill(sH);
+         break;
+          
+       case 'a':
+         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,0,0,5); fill(0); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
+         break;
+       case 'A':
+         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,0,0,5); fill(0); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
+         break;
+          
+       case 's':
+         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,0,5,5); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (snakeSize - 12),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (snakeSize -12),6,10 ); fill(sH);
+         break;
+       case 'S':
+         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,0,5,5); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (snakeSize - 12),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (snakeSize -12),6,10 ); fill(sH);
+         break;
+          
+       case 'd':
+         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,5,5,0); fill(0); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
+         break;
+       case 'D':
+         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,5,5,0); fill(0); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
+         break;
+          
+       default:
+         break;
+     }
+  }*/
+  
    
    void update()
    {
@@ -32,8 +72,7 @@ class Snake extends GameObjects
          dir_horiz = dirSnake[1];
          dir_vertic = dirSnake[0];
        }
-       wasd = key;
-
+       //wasd=key;
      }//end if keyPressed
      
      
@@ -53,15 +92,20 @@ class Snake extends GameObjects
    
    void render()
    {
-     fill(sH);
-     //snakeParts.setFill(sH);
-     
-     //snake head
-     rect(snakeX.get(0)*snakeSize,snakeY.get(0)*snakeSize,snakeSize,snakeSize,snakeHeadCurv);
-     
-     wasdEyes(0);
-     //shape(snakeParts,snakeX.get(0)*snakeSize,snakesnakeY.get(0)*snakeSize);
-     
+     for(int i=0;i<1;i++)
+     {
+       fill(sH);
+       //snakeParts.setFill(sH);
+       
+       //snake heads
+       rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeHeadCurv);
+       
+       //snake eyes;
+       //fill(0);// rect((snakeX.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeX.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
+       
+       //wasdEyes(i);
+       //shape(snakeParts,snakeX.get(0)*snakeSize,snakesnakeY.get(0)*snakeSize);
+     }
     
      //snake body
      for(int i = 1;i < snakeX.size(); i++)
@@ -73,42 +117,9 @@ class Snake extends GameObjects
      }
    }
    
-  void wasdEyes(int i)
-  {
-     switch (wasd)
-     {
-       case 'w':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,5,0,0); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (2),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (2),6,10 ); fill(0,150,0);
-         break;
-       case 'W':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,5,0,0); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (2),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (2),6,10 ); fill(0,150,0);
-         break;
-          
-       case 'a':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,0,0,5); fill(0); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (16),10,6 ); fill(0,150,0);
-         break;
-       case 'A':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,0,0,5); fill(0); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (16),10,6 ); fill(0,150,0);
-         break;
-          
-       case 's':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,0,5,5); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (snakeSize - 12),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (snakeSize -12),6,10 ); fill(0,150,0);
-         break;
-       case 'S':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,0,5,5); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (snakeSize - 12),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (snakeSize -12),6,10 ); fill(0,150,0);
-         break;
-          
-       case 'd':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,5,5,0); fill(0); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(0,150,0);
-         break;
-       case 'D':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,5,5,0); fill(0); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(0,150,0);
-         break;
-          
-       default:
-         break;
-     }
-  }
+   
+  /* ***** REMOVE SOME FILLS ***** */
+  
    
    
    

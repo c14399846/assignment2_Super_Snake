@@ -85,6 +85,7 @@ int[] dirSnake = {0,1,-1};
 int dir_horiz = dirSnake[1];
 int dir_vertic = dirSnake[0];
 
+//char wasd='d';
 color sH = color(0,150,0);
 color sB = color(0,255,0);
 
@@ -140,6 +141,8 @@ void setup()
   xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
   */
 }
+
+
 
 
 //button system for the game
@@ -228,10 +231,4 @@ void draw()
   // will be moved later, into a switch statement or otherwise into menu system *****
   snake.update();
   snake.render();
-  
-  
-  
-  
-  
-  
 }
