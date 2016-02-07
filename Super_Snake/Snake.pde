@@ -11,7 +11,7 @@ class Snake extends GameObjects
   {
     
     //need to redo for the other classes
-      if((snakeX.get(0) >= initWidth) || (snakeX.get(0) <= 0 ) || (snakeY.get(0) >= initHeight) || (snakeY.get(0) <= 0))
+      if((snakeX.get(0) >= initWidth) || (snakeX.get(0) < 0 ) || (snakeY.get(0) >= initHeight) || (snakeY.get(0) < 0))
       {
         if(!easy && !norm)//if you're playing on a difficulty above easy and normal
         {
