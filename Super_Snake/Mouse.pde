@@ -3,7 +3,7 @@ class Mouse extends GameObjects
   
   void update()
   {
-    d = dist(snakeX.get(0),snakeY.get(0),PUMouseX,PUMouseY);
+    d = (int) dist(snakeX.get(0),snakeY.get(0),PUMouseX,PUMouseY);
     
     if(d <= 3)
     {
@@ -15,6 +15,7 @@ class Mouse extends GameObjects
   void render()
   {
     fill(mouseCol);
+    stroke(mouseLine);
     rect(PUMouseX*PUSize,PUMouseY*PUSize,PUSize,PUSize,PUCurv);
   }
   
@@ -23,8 +24,8 @@ class Mouse extends GameObjects
     if(snakeX.get(0) == PUMouseX && snakeY.get(0) == PUMouseY)
     {
       score+=2;
-      PUMouseX = (int) random(0,(initWidth/snakeSize));
-      PUMouseY = (int) random(0,(initWidth/snakeSize));
+      PUMouseX = (int) random(0,(initWidth/PUSize));
+      PUMouseY = (int) random(0,(initWidth/PUSize));
     }
   }
   

@@ -112,7 +112,12 @@ int dir_vertic;
 //char wasd='d';
 color sH = color(0,100,0);
 color sB = color(0,255,0);
+
 color mouseCol = color(100);
+color mouseLine = color(0);
+
+color cherryCol = color(200,0,0);
+color cherryLine = color(0,175,0);
 
 ArrayList<Integer> snakeX = new ArrayList<Integer>();
 ArrayList<Integer> snakeY = new ArrayList<Integer>();
@@ -162,7 +167,6 @@ void setup()
   mouse = new Mouse();
   
   cherry = new Fruit();
-  
   
   
   /*
@@ -290,23 +294,26 @@ void draw()
   }
   */
   
-  
-  
-  // will be moved later, into a switch statement or otherwise into menu system *****
-  snake.CheckDeath();
-  mouse.CheckDeath();
-  cherry.CheckDeath();
+  // will be moved later, into a switch statement or otherwise into menu system ***** 
+  deather();
   
   if(!gameOver)
-  {
-    snake.update();
-    snake.render();
-    
+  {  
     mouse.update();
     mouse.render();
     
     cherry.update();
     cherry.render();
+    
+    snake.update();
+    snake.render();    
   }
   
+}
+
+void deather()
+{
+  snake.CheckDeath();
+  mouse.CheckDeath();
+  cherry.CheckDeath();
 }
