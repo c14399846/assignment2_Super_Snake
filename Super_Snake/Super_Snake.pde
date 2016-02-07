@@ -82,8 +82,8 @@ int score = 0;
 //dont move, move 'forward', move 'back'
 int[] dirSnake = {0,1,-1};
 //starts snake moving right
-int dir_horiz = dirSnake[1];
-int dir_vertic = dirSnake[0];
+int dir_horiz;
+int dir_vertic;
 
 //char wasd='d';
 color sH = color(0,125,0);
@@ -117,17 +117,17 @@ void setup()
   smooth(8);
   //fullScreen();
   
-  snakeParts = createShape(RECT, 0, 0, 30, 30);  
+  //MIGHT ADD BACK IN LATER
+  //snakeParts = createShape(RECT, 0, 0, 30, 30);  
+  
+  
   //each blocksize of the snake or powerups will be be 60 or 30 pixels, THE PLACE WHERE IT'S INITIATED MAY BE MOVED LATER ON, INTO IT'S OWN CLASS *****
   //this is just the snakes first position
-  
-  
-  //adds first 5 snake body parts to the arraylist
-  for(int i =0;i<5;i++){snakeX.add(6);snakeY.add(6);}
   
   snake = new Snake();
   gameObjects.add(snake);
   
+  snakeSetup();
   
   /*
   ***** will be added back in later, after game runs fine on its own*****
@@ -144,6 +144,13 @@ void setup()
   */
 }
 
+void snakeSetup()
+{
+  //adds first 5 snake body parts to the arraylist, gives initial direction(right)
+  for(int i =0;i<5;i++){snakeX.add(6);snakeY.add(6);}
+  dir_horiz = dirSnake[1];
+  dir_vertic = dirSnake[0];
+}
 
 
 

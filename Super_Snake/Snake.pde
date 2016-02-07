@@ -11,8 +11,7 @@ class Snake extends GameObjects
   {
     
     //need to redo for the other classes
-    //can go past width and height for some reason,fix needed ********
-      if(snakeX.get(0) >= initWidth || snakeX.get(0) < 0  || snakeY.get(0) >= initHeight || snakeY.get(0) < 0)
+      if(snakeX.get(0) >= (initWidth/snakeSize) || snakeX.get(0) < 0  || snakeY.get(0) >= (initHeight/snakeSize) || snakeY.get(0) < 0)
       {
         if(!easy && !norm)//if you're playing on a difficulty above easy and normal
         {
@@ -24,6 +23,14 @@ class Snake extends GameObjects
           text("Game Over.",initWidth/2,initHeight/2);
           textSize(20);
           text("Press 'r' to reset or esc to leave game",initWidth/2,(initHeight/2) + (0.1 * initHeight));
+          
+          if(keyPressed)
+          {
+            if(key == 'r' || key == 'R')
+            {
+              snakeReincarnate();//restarts snake
+            }
+          }
         }
         /*else
         {
@@ -31,6 +38,18 @@ class Snake extends GameObjects
           //head will be placed on opposite, but dont know if body will too? *******
         }*/
       }
+  }
+   
+  void snakeReincarnate()
+  {
+    //removes all snake segments
+    snakeX.clear();
+    snakeY.clear();
+    
+    //re-adds first 5 snake body parts to the arraylist, gives initial direction(right)
+    snakeSetup();
+    
+    gameOver = false;
   }
    
   /*void wasdEyes(int i)
@@ -108,8 +127,8 @@ class Snake extends GameObjects
        snakeY.add(0,snakeY.get(0) + dir_vertic);
        
        //removes the last snake segment
-       snakeX.remove(snakeX.size()-1);
-       snakeY.remove(snakeY.size()-1);
+       snakeX.remove(snakeX.size() - 1);
+       snakeY.remove(snakeY.size() - 1);
      }   
      
      
