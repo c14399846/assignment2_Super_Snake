@@ -86,11 +86,12 @@ int dir_horiz = dirSnake[1];
 int dir_vertic = dirSnake[0];
 
 //char wasd='d';
-color sH = color(0,150,0);
+color sH = color(0,125,0);
 color sB = color(0,255,0);
 
 ArrayList<Integer> snakeX = new ArrayList<Integer>();
 ArrayList<Integer> snakeY = new ArrayList<Integer>();
+ArrayList<GameObjects> gameObjects = new ArrayList<GameObjects>();
 
 //classes
 ControlP5 controlP5;
@@ -121,10 +122,11 @@ void setup()
   //this is just the snakes first position
   
   
-  //adds first 4 snake body parts to the arraylist
+  //adds first 5 snake body parts to the arraylist
   for(int i =0;i<5;i++){snakeX.add(6);snakeY.add(6);}
   
-  snake  = new Snake();  
+  snake = new Snake();
+  gameObjects.add(snake);
   
   
   /*
@@ -206,7 +208,6 @@ void gameMode()
     norm_button.show();
     hard_button.show();
     xtrm_button.show();
-  
 }
 
 
@@ -229,6 +230,10 @@ void draw()
   */
   
   // will be moved later, into a switch statement or otherwise into menu system *****
-  snake.update();
-  snake.render();
+  if(!gameOver)
+  {
+    snake.update();
+    snake.render();
+  }
+  snake.CheckDeath();
 }

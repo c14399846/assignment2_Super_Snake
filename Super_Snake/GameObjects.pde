@@ -1,6 +1,8 @@
 //change to abstract class later *****
-class GameObjects
+abstract class GameObjects
 {
-  
+  abstract void CheckDeath();
+  abstract void update();
+  abstract void render();
 
 }

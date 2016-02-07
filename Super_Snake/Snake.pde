@@ -7,7 +7,22 @@ class Snake extends GameObjects
      
    }
    
-
+  void CheckDeath()
+  {
+    
+    //need to redo for the other classes
+      if((snakeX.get(0) >= initWidth) || (snakeX.get(0) <= 0 ) || (snakeY.get(0) >= initHeight) || (snakeY.get(0) <= 0))
+      {
+        if(!easy && !norm)//if you're playing on a difficulty above easy and normal
+        {
+          gameOver=true;
+        }
+        else
+        {
+          //code for placing snake on opposite side of grid, maybe ********
+        }
+      }
+  }
    
   /*void wasdEyes(int i)
   {
@@ -87,8 +102,9 @@ class Snake extends GameObjects
        snakeX.remove(snakeX.size()-1);
        snakeY.remove(snakeY.size()-1);
      }   
+     
+     
    }
-   
    
    void render()
    {
