@@ -1,4 +1,4 @@
-class Fruit extends GameObjects
+class Fruit extends GameObjects //implements Powerup
 {
   void update()
   {
@@ -21,6 +21,12 @@ class Fruit extends GameObjects
     if(snakeX.get(0) == PUFruitX && snakeY.get(0) == PUFruitY)
     {
       score++;
+      
+      //adds size to snake, but leaves some strange artifact
+      snakeX.add(snakeX.size()-1, 1);
+      snakeY.add(snakeY.size()-1, 1);
+      
+      
       PUFruitX = (int) random(0,(initWidth/PUSize));
       PUFruitY = (int) random(0,(initWidth/PUSize));
     }

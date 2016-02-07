@@ -299,14 +299,17 @@ void draw()
   
   if(!gameOver)
   {  
+    
+    snake.update();
+    snake.render(); 
+    
     mouse.update();
     mouse.render();
     
     cherry.update();
     cherry.render();
     
-    snake.update();
-    snake.render();    
+       
   }
   
 }
