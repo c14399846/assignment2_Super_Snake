@@ -8,9 +8,7 @@ class Snake extends GameObjects
    }
    
   void CheckDeath()
-  {
-    
-    //need to redo for the other classes
+  {  
       if(snakeX.get(0) >= (initWidth/snakeSize) || snakeX.get(0) < 0  || snakeY.get(0) >= (initHeight/snakeSize) || snakeY.get(0) < 0)
       {
         if(!easy && !norm)//if you're playing on a difficulty above easy and normal
@@ -22,7 +20,7 @@ class Snake extends GameObjects
           textSize(30);
           text("Game Over.",initWidth/2,initHeight/2);
           textSize(20);
-          text("Press 'r' to reset or esc to leave game",initWidth/2,(initHeight/2) + (0.1 * initHeight));
+          text("Press 'r' to reset or 'm' to go to menu",initWidth/2,(initHeight/2) + (0.1 * initHeight));
           
           if(keyPressed)
           {
@@ -30,6 +28,9 @@ class Snake extends GameObjects
             {
               snakeReincarnate();//restarts snake
             }
+            /*else if(key == 'm' || key == 'M')
+            { 
+            }*/
           }
         }
         /*else
@@ -125,31 +126,28 @@ class Snake extends GameObjects
        //adds a new snake segment to the start
        snakeX.add(0,snakeX.get(0) + dir_horiz);
        snakeY.add(0,snakeY.get(0) + dir_vertic);
-       
+     
        //removes the last snake segment
        snakeX.remove(snakeX.size() - 1);
        snakeY.remove(snakeY.size() - 1);
-     }   
-     
+     }
+       
      
    }
    
    void render()
    {
-     for(int i=0;i<1;i++)
-     {
-       fill(sH);
-       //snakeParts.setFill(sH);
+     fill(sH);
+     //snakeParts.setFill(sH);
        
-       //snake heads
-       rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeHeadCurv);
+     //snake heads
+     rect(snakeX.get(0)*snakeSize,snakeY.get(0)*snakeSize,snakeSize,snakeSize,snakeHeadCurv);
        
-       //snake eyes;
-       //fill(0);// rect((snakeX.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeX.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
+     //snake eyes;
+     //fill(0);// rect((snakeX.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeX.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
        
-       //wasdEyes(i);
-       //shape(snakeParts,snakeX.get(0)*snakeSize,snakesnakeY.get(0)*snakeSize);
-     }
+     //wasdEyes(0);
+     //shape(snakeParts,snakeX.get(0)*snakeSize,snakesnakeY.get(0)*snakeSize);
     
      //snake body
      for(int i = 1;i < snakeX.size(); i++)

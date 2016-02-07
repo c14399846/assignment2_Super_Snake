@@ -66,6 +66,8 @@ boolean game0 = true;//where there are no walls
 boolean game1 = false;
 boolean game2 = false;
 
+boolean keyActive=false;//used for direction checks *****
+
 
 
 int initHeight = 600;/* ***** CHANGE TO 1200 FOR DEMO ***** */
@@ -75,6 +77,18 @@ int snakeSize = 30; //snakes  width and height
 int snakeHeadCurv = 5;// curvature of snakes head
 int snakeBodyCurv = 10;// curvature of snakes body
 int difficulty = 3; /* ***** CHANGE TO 0 AFTER BUTTONS ARE RE-ENABLED, 3 is easiest,1 is hardest ***** */
+
+//powerup up position and size
+//int PUX;//powerup x
+//int PUY;//powerup y
+int PUCurv = snakeBodyCurv;
+int PUSize = snakeSize;
+
+
+//mouse position
+int PUMouseX;
+int PUMouseY;
+
 
 
 int score = 0;
@@ -86,12 +100,15 @@ int dir_horiz;
 int dir_vertic;
 
 //char wasd='d';
-color sH = color(0,125,0);
+color sH = color(0,100,0);
 color sB = color(0,255,0);
+color mouseCol = color(100);
 
 ArrayList<Integer> snakeX = new ArrayList<Integer>();
 ArrayList<Integer> snakeY = new ArrayList<Integer>();
 ArrayList<GameObjects> gameObjects = new ArrayList<GameObjects>();
+
+
 
 //classes
 ControlP5 controlP5;
@@ -110,6 +127,8 @@ controlP5.Button xtrm_button;
 Snake snake;
 PShape snakeParts;
 
+Mouse mouse;
+
 
 void setup()
 {
@@ -126,8 +145,11 @@ void setup()
   
   snake = new Snake();
   gameObjects.add(snake);
-  
   snakeSetup();
+  
+  mouse = new Mouse();
+  
+  
   
   /*
   ***** will be added back in later, after game runs fine on its own*****
@@ -150,6 +172,10 @@ void snakeSetup()
   for(int i =0;i<5;i++){snakeX.add(6);snakeY.add(6);}
   dir_horiz = dirSnake[1];
   dir_vertic = dirSnake[0];
+  
+  //mouse position
+  PUMouseX = (int) random(0,(initWidth/snakeSize));
+  PUMouseY = (int) random(0,(initHeight/snakeSize));
 }
 
 
@@ -236,12 +262,18 @@ void draw()
   }
   */
   
+  
   // will be moved later, into a switch statement or otherwise into menu system *****
   snake.CheckDeath();
+  mouse.CheckDeath();
+  
   if(!gameOver)
   {
     snake.update();
     snake.render();
+    
+    mouse.update();
+    mouse.render();
   }
   
 }
