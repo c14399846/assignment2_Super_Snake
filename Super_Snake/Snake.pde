@@ -11,16 +11,25 @@ class Snake extends GameObjects
   {
     
     //need to redo for the other classes
-      if((snakeX.get(0) >= initWidth) || (snakeX.get(0) < 0 ) || (snakeY.get(0) >= initHeight) || (snakeY.get(0) < 0))
+    //can go past width and height for some reason,fix needed ********
+      if(snakeX.get(0) >= initWidth || snakeX.get(0) < 0  || snakeY.get(0) >= initHeight || snakeY.get(0) < 0)
       {
         if(!easy && !norm)//if you're playing on a difficulty above easy and normal
         {
           gameOver=true;
+          
+          fill(255);
+          textAlign(CENTER);
+          textSize(30);
+          text("Game Over.",initWidth/2,initHeight/2);
+          textSize(20);
+          text("Press 'r' to reset or esc to leave game",initWidth/2,(initHeight/2) + (0.1 * initHeight));
         }
-        else
+        /*else
         {
           //code for placing snake on opposite side of grid, maybe ********
-        }
+          //head will be placed on opposite, but dont know if body will too? *******
+        }*/
       }
   }
    

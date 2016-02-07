@@ -230,10 +230,11 @@ void draw()
   */
   
   // will be moved later, into a switch statement or otherwise into menu system *****
+  snake.CheckDeath();
   if(!gameOver)
   {
     snake.update();
     snake.render();
   }
-  snake.CheckDeath();
+  
 }
