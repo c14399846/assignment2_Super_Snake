@@ -1,7 +1,14 @@
 class Mouse extends GameObjects
 {
+  
   void update()
   {
+    d = dist(snakeX.get(0),snakeY.get(0),PUMouseX,PUMouseY);
+    
+    if(d <= 3)
+    {
+      frightened();
+    }
     
   }
   
@@ -19,5 +26,14 @@ class Mouse extends GameObjects
       PUMouseX = (int) random(0,(initWidth/snakeSize));
       PUMouseY = (int) random(0,(initWidth/snakeSize));
     }
+  }
+  
+  
+  void frightened()
+  {
+    //sound_squeek.play();
+    println("squeek!");
+    
+    //code for making the mouse shake
   }
 }

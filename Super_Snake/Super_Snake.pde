@@ -42,10 +42,11 @@ import java.util.*;//used for setSize function
 import controlP5.*;//used for buttons
 import processing.sound.*;//used for playing and loading in soundfiles
 
-/* ******add files later *****
+/*
 SoundFile sound_eat;
 Soundfile sound_die;
 Soundfile sound_newGame;
+SoundFile sound_squeek;
 */
 
 //menu system
@@ -88,6 +89,9 @@ int PUSize = snakeSize;
 //mouse position
 int PUMouseX;
 int PUMouseY;
+
+
+float d;
 
 
 
@@ -261,6 +265,7 @@ void draw()
     gameMode();
   }
   */
+  
   
   
   // will be moved later, into a switch statement or otherwise into menu system *****
