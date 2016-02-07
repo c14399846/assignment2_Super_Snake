@@ -86,16 +86,22 @@ int PUCurv = snakeBodyCurv;
 int PUSize = snakeSize;
 
 
+/* ***** WILL BE CHANGED LATER ***** */
+
 //mouse position
 int PUMouseX;
 int PUMouseY;
+
+//fruit position
+int PUFruitX;
+int PUFruitY;
 
 
 float d;
 
 
 
-int score = 0;
+int score;
 
 //dont move, move 'forward', move 'back'
 int[] dirSnake = {0,1,-1};
@@ -133,6 +139,8 @@ PShape snakeParts;
 
 Mouse mouse;
 
+Fruit cherry;
+
 
 void setup()
 {
@@ -152,6 +160,8 @@ void setup()
   snakeSetup();
   
   mouse = new Mouse();
+  
+  cherry = new Fruit();
   
   
   
@@ -177,9 +187,23 @@ void snakeSetup()
   dir_horiz = dirSnake[1];
   dir_vertic = dirSnake[0];
   
+  score = 0;
+  
+  
+  /* ********* the pu positions will be changed to PUX and PUY, and will be passed into each class,
+               there pux and puy will be given their own unique values - this.pux this puy, etc,
+               a collisioncheck() funciton will be made to stop same spawns,
+               either in draw or elsewhere
+     ********* 
+  */
+  
   //mouse position
   PUMouseX = (int) random(0,(initWidth/snakeSize));
   PUMouseY = (int) random(0,(initHeight/snakeSize));
+
+  //fruit position
+  PUFruitX = (int) random(0,(initWidth/snakeSize));
+  PUFruitY = (int) random(0,(initHeight/snakeSize));
 }
 
 
@@ -271,6 +295,7 @@ void draw()
   // will be moved later, into a switch statement or otherwise into menu system *****
   snake.CheckDeath();
   mouse.CheckDeath();
+  cherry.CheckDeath();
   
   if(!gameOver)
   {
@@ -279,6 +304,9 @@ void draw()
     
     mouse.update();
     mouse.render();
+    
+    cherry.update();
+    cherry.render();
   }
   
 }

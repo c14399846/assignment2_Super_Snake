@@ -20,7 +20,8 @@ class Snake extends GameObjects
           textSize(30);
           text("Game Over.",initWidth/2,initHeight/2);
           textSize(20);
-          text("Press 'r' to reset or 'm' to go to menu",initWidth/2,(initHeight/2) + (0.1 * initHeight));
+          text("Score: " + score,initWidth/2,(initHeight/2) + (0.1 * initHeight));
+          text("Press 'r' to reset or 'm' to go to menu",initWidth/2,(initHeight/2) + (0.2 * initHeight));
           
           if(keyPressed)
           {
