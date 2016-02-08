@@ -44,13 +44,6 @@ How things are done:
 ******/
 
 
-/*
-Minim sound_eat;
-Minim sound_die;
-Minim sound_newGame;
-Minim sound_squeek;*/
-
-
 //menu system
 boolean play = false;
 boolean menu = true;
@@ -174,8 +167,9 @@ void setup()
   //snakeParts = createShape(RECT, 0, 0, 30, 30, snake.sP, snake.sP);
   
   
-  /*
-  ***** will be added back in later, after game runs fine on its own*****
+  
+  /***** will be added back in later, after game runs fine on its own*****/
+  
   controlP5 = new ControlP5(this); //button class
   
   menu_button = controlP5.addButton("Main Menu" ,1,initWidth/2,initHeight/2,100,75);
@@ -186,7 +180,7 @@ void setup()
   norm_button = controlP5.addButton("Normal" ,1,initWidth/2,initHeight/2 - 150,100,75);
   hard_button = controlP5.addButton("Hard" ,1,initWidth/2,initHeight/2 - 225,100,75);
   xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
-  */
+  
 }
 
 void snakeSounds()
@@ -243,6 +237,10 @@ void controlEvent(ControlEvent buttonPressed)
     mode = true;
   }
   
+  if(buttonPressed.controller().getName().equals("Play")){
+    play = true;
+  }
+  
   if(buttonPressed.controller().getName().equals("Easy")){
     easy = true;
   }  
@@ -294,25 +292,10 @@ void gameMode()
     xtrm_button.show();
 }
 
-
-void draw()
+void gamePlay()
 {
-  frameRate(fps);
-  //need to increase speed in another way
-  background(0);
-  /*
-  ***** removed just for testing purposes, will be added back in after game runs fine *****
-  if(menu == true){
-    background(0);
-    menu(); 
-  }
-  
-  if(mode == true){  
-    background(0);
-    gameMode();
-  }
-  */
-  
+  mode_button.hide();
+  play_button.hide();
   // will be moved later, into a switch statement or otherwise into menu system ***** 
   deather();
   
@@ -325,9 +308,36 @@ void draw()
     cherry.render();
     
     snake.update();
-    snake.render(); 
-       
+    snake.render();    
   }
+}
+
+
+void draw()
+{
+  frameRate(fps);
+  //need to increase speed in another way
+  background(0);
+  
+  /***** removed just for testing purposes, will be added back in after game runs fine *****/
+  if(menu == true)
+  {
+    background(0);
+    menu(); 
+  }
+  
+  if(mode == true)
+  {  
+    background(0);
+    gameMode();
+  }
+  
+  if(play == true)
+  {
+    background(0);
+    gamePlay();
+  }
+  
   
 }
 

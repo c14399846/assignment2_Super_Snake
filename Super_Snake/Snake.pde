@@ -4,11 +4,12 @@ class Snake extends GameObjects
    int mPU;
    int fPU;
    boolean eaten;//if powerup is eaten
-   int sP;
-  
+   //int sP;
+   
+   
    Snake()
    {
-     this.sP = snakeHeadCurv;
+     //this.sP = snakeHeadCurv;
    }
    
   void CheckDeath()
@@ -59,8 +60,6 @@ class Snake extends GameObjects
             }*/
           }
       }
-      
-      
   }
    
   void snakeReincarnate()

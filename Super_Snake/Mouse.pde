@@ -1,5 +1,6 @@
 class Mouse extends GameObjects implements Powerup
 {
+  
   void update()
   {
     d = (int) dist(snakeX.get(0),snakeY.get(0),PUMouseX,PUMouseY);
