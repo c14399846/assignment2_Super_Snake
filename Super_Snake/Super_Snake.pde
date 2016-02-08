@@ -108,9 +108,9 @@ int[] dirSnake = {0,1,-1};
 int dir_horiz;
 int dir_vertic;
 
-//char wasd='d';
-color sH = color(0,100,0);
-color sB = color(0,255,0);
+
+color sH;
+color sB;
 
 color mouseCol = color(100);
 color mouseLine = color(0);
@@ -151,11 +151,7 @@ void setup()
 {
   surface.setSize(initWidth,initHeight);
   smooth(8);
-  //fullScreen();
-  
-  //MIGHT ADD BACK IN LATER
-  //snakeParts = createShape(RECT, 0, 0, 30, 30);  
-  
+  //fullScreen();  
   
   //each blocksize of the snake or powerups will be be 60 or 30 pixels, THE PLACE WHERE IT'S INITIATED MAY BE MOVED LATER ON, INTO IT'S OWN CLASS *****
   //this is just the snakes first position
@@ -167,6 +163,8 @@ void setup()
   mouse = new Mouse();
   
   cherry = new Fruit();
+  
+  //snakeParts = createShape(RECT, 0, 0, 30, 30, snake.sP, snake.sP);
   
   
   /*
@@ -187,11 +185,16 @@ void setup()
 void snakeSetup()
 {
   //adds first 5 snake body parts to the arraylist, gives initial direction(right)
-  for(int i =0;i<5;i++){snakeX.add(6);snakeY.add(6);}
+  for(int i =0;i<5;i++){snakeX.add(i);snakeY.add(i);}// ***** might need changes,looks cool though
   dir_horiz = dirSnake[1];
   dir_vertic = dirSnake[0];
   
   snake.score = 0;
+  snake.mPU = 0;
+  snake.fPU = 0;
+  
+  sH = color(0,100,0);
+  sB = color(0,255,0);
   
   
   /* ********* the pu positions will be changed to PUX and PUY, and will be passed into each class,

@@ -1,12 +1,14 @@
 class Snake extends GameObjects
 {
    int score;
+   int mPU;
+   int fPU;
    boolean eaten;//if powerup is eaten
+   int sP;
   
    Snake()
    {
-     this.eaten=false;
-     this.score = 0;
+     this.sP = snakeHeadCurv;
    }
    
   void CheckDeath()
@@ -41,7 +43,9 @@ class Snake extends GameObjects
           text("Game Over.",initWidth/2,initHeight/2);
           textSize(20);
           text("Score: " + score,initWidth/2,(initHeight/2) + (0.1 * initHeight));
-          text("Press 'r' to reset or 'm' to go to menu",initWidth/2,(initHeight/2) + (0.2 * initHeight));
+          text("Cherry: " + snake.fPU + " Mice: " + snake.mPU,initWidth/2,(initHeight/2) + (0.2 * initHeight));
+          text("Press 'r' to reset or 'm' to go to menu",initWidth/2,(initHeight/2) + (0.3 * initHeight));
+          
           
           if(keyPressed)
           {
@@ -64,7 +68,6 @@ class Snake extends GameObjects
     //removes all snake segments
     snakeX.clear();
     snakeY.clear();
-    
     
     //checkScore();
     
@@ -177,23 +180,25 @@ class Snake extends GameObjects
    {
      fill(sH);
      //snakeParts.setFill(sH);
-       
-     //snake heads
-     rect(snakeX.get(0)*snakeSize,snakeY.get(0)*snakeSize,snakeSize,snakeSize,snakeHeadCurv);
+     
+     //sP = snakeHeadCurv;
+     //snake head
+     rect(snakeX.get(0)*snakeSize,snakeY.get(0)*snakeSize,snakeSize+(snakeSize*0.07),snakeSize+(snakeSize*0.07),snakeHeadCurv);
        
      //snake eyes;
      //fill(0);// rect((snakeX.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeX.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
        
      //wasdEyes(0);
-     //shape(snakeParts,snakeX.get(0)*snakeSize,snakesnakeY.get(0)*snakeSize);
+     //shape(snakeParts,snakeX.get(0)*snakeSize,snakeY.get(0)*snakeSize);
     
+     //sP = snakeBodyCurv;
      //snake body
      for(int i = 1;i < snakeX.size(); i++)
      {
        fill(sB);
        //snakeParts.setFill(sB);
        rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeBodyCurv);
-       // shape(snakeParts,snakeX.get(i)*snakeSize,snakesnakeY.get(i)*snakeSize);
+       //shape(snakeParts,snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize);
          
        strokeWeight(3);
        stroke(0);
@@ -207,9 +212,6 @@ class Snake extends GameObjects
          line(snakeX.get(i)*snakeSize+1,snakeY.get(i)*snakeSize+(snakeSize*0.5),snakeX.get(i)*snakeSize+(snakeSize-1),snakeY.get(i)*snakeSize+(snakeSize*0.5));
        }*/
      }
-     println(snakeX.get(0) + "  " + snakeY.get(0));
-     println("2:  " + snakeX.get(1) + "  " + snakeY.get(1));
-     println("3:  " + snakeX.get(2) + "  " + snakeY.get(2));
    }//end render
    
    

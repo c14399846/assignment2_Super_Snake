@@ -1,6 +1,5 @@
 class Mouse extends GameObjects implements Powerup
 {
-  
   void update()
   {
     d = (int) dist(snakeX.get(0),snakeY.get(0),PUMouseX,PUMouseY);
@@ -26,6 +25,8 @@ class Mouse extends GameObjects implements Powerup
       //snakeX.add(0,PUMouseX + dir_horiz);
       //snakeY.add(0,PUMouseY + dir_vertic);
       
+      timer();
+      
       PUMouseX = (int) random(0,(initWidth/PUSize));
       PUMouseY = (int) random(0,(initWidth/PUSize));
     }
@@ -35,8 +36,14 @@ class Mouse extends GameObjects implements Powerup
   {
     println("m eaten");
     snake.score += 3;
+    snake.mPU++;
     snake.eaten = true;
   }
+  
+  void timer()
+  {
+    
+  }  
   
   void frightened()
   {
