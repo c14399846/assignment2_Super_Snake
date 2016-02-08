@@ -9,12 +9,30 @@ class Snake extends GameObjects
    
   void CheckDeath()
   {  
+    
+     for(int i = 1;i < snakeX.size();i++)
+      {
+        if(snakeX.get(0) == snakeX.get(i) && snakeY.get(0) == snakeY.get(i))
+        {
+          gameOver = true;
+        }
+      }
+    
       if(snakeX.get(0) >= (initWidth/snakeSize) || snakeX.get(0) < 0  || snakeY.get(0) >= (initHeight/snakeSize) || snakeY.get(0) < 0)
       {
         if(!easy && !norm)//if you're playing on a difficulty above easy and normal
         {
           gameOver=true;
-          
+        }
+        /*else
+        {
+          //code for placing snake on opposite side of grid, maybe ********
+          //head will be placed on opposite, but dont know if body will too? *******
+        }*/
+      }
+      
+      if(gameOver)
+      {
           fill(255);
           textAlign(CENTER);
           textSize(30);
@@ -31,23 +49,12 @@ class Snake extends GameObjects
             }
             /*else if(key == 'm' || key == 'M')
             { 
+              //menu stuff, could be exchanged for buttons, or have both
             }*/
           }
-        }
-        /*else
-        {
-          //code for placing snake on opposite side of grid, maybe ********
-          //head will be placed on opposite, but dont know if body will too? *******
-        }*/
       }
       
-      for(int i = 1;i < snakeX.size();i++)
-       {
-         if(snakeX.get(i) == snakeX.get(0) && snakeY.get(i) == snakeY.get(0))
-         {
-           //gameOver = true;
-         }
-       }
+      
   }
    
   void snakeReincarnate()
@@ -56,10 +63,19 @@ class Snake extends GameObjects
     snakeX.clear();
     snakeY.clear();
     
+    
+    //checkScore();
+    
     //re-adds first 5 snake body parts to the arraylist, gives initial direction(right)
     snakeSetup();
     
     gameOver = false;
+  }
+  
+  //function to check score of player, will have string of 3 length for username, and score of current player
+  void checkScore()
+  {
+    /* ***** ADD CODE FOR SCORE CHECK ***** */
   }
    
   /*void wasdEyes(int i)
@@ -99,6 +115,11 @@ class Snake extends GameObjects
      }
   }*/
   
+  void PUEaten()
+  {
+    //sound_eat.play();//plays sound 'nom' or something to that effect
+    eaten = false;
+  }
    
    void update()
    {
@@ -134,15 +155,22 @@ class Snake extends GameObjects
      {
        //adds a new snake segment to the start
        snakeX.add(0,snakeX.get(0) + dir_horiz);
-       snakeY.add(0,snakeY.get(0) + dir_vertic);     
-     
-       //removes the last snake segment
-       snakeX.remove(snakeX.size() - 1);
-       snakeY.remove(snakeY.size() - 1);
-     }
+       snakeY.add(0,snakeY.get(0) + dir_vertic);
+         
+       if(eaten)
+       {
+         PUEaten();
+       }
        
+       else if(!eaten)
+       {
+         //removes the last snake segment
+         snakeX.remove(snakeX.size() - 1);
+         snakeY.remove(snakeY.size() - 1);
+       }
+     }
      
-   }
+   }//end update
    
    void render()
    {
@@ -159,29 +187,29 @@ class Snake extends GameObjects
      //shape(snakeParts,snakeX.get(0)*snakeSize,snakesnakeY.get(0)*snakeSize);
     
      //snake body
-       for(int i = 1;i < snakeX.size(); i++)
+     for(int i = 1;i < snakeX.size(); i++)
+     {
+       fill(sB);
+       //snakeParts.setFill(sB);
+       rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeBodyCurv);
+       // shape(snakeParts,snakeX.get(i)*snakeSize,snakesnakeY.get(i)*snakeSize);
+         
+       strokeWeight(3);
+       stroke(0);
+         
+       /*if(key == 'w' || key == 's' || key == 'W' || key == 'S')
        {
-         fill(sB);
-         //snakeParts.setFill(sB);
-         rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeBodyCurv);
-         // shape(snakeParts,snakeX.get(i)*snakeSize,snakesnakeY.get(i)*snakeSize);
-         
-         strokeWeight(3);
-         stroke(0);
-         
-         /*if(key == 'w' || key == 's' || key == 'W' || key == 'S')
-         {
-           line(snakeX.get(i)*snakeSize+(snakeSize*0.5),snakeY.get(i)*snakeSize+(1),snakeX.get(i)*snakeSize+(snakeSize*0.5),snakeY.get(i)*snakeSize+(snakeSize-1));
-         }
-         else if(key == 'a' || key == 'd' || key == 'A' || key == 'D')
-         {
-           line(snakeX.get(i)*snakeSize+1,snakeY.get(i)*snakeSize+(snakeSize*0.5),snakeX.get(i)*snakeSize+(snakeSize-1),snakeY.get(i)*snakeSize+(snakeSize*0.5));
-         }*/
+         line(snakeX.get(i)*snakeSize+(snakeSize*0.5),snakeY.get(i)*snakeSize+(1),snakeX.get(i)*snakeSize+(snakeSize*0.5),snakeY.get(i)*snakeSize+(snakeSize-1));
+       }
+       else if(key == 'a' || key == 'd' || key == 'A' || key == 'D')
+       {
+         line(snakeX.get(i)*snakeSize+1,snakeY.get(i)*snakeSize+(snakeSize*0.5),snakeX.get(i)*snakeSize+(snakeSize-1),snakeY.get(i)*snakeSize+(snakeSize*0.5));
+       }*/
      }
      println(snakeX.get(0) + "  " + snakeY.get(0));
      println("2:  " + snakeX.get(1) + "  " + snakeY.get(1));
      println("3:  " + snakeX.get(2) + "  " + snakeY.get(2));
-   }
+   }//end render
    
    
   /* ***** REMOVE SOME FILLS ***** */

@@ -27,8 +27,7 @@ class Mouse extends GameObjects //implements Powerup
       
       //snakeX.add(0,PUMouseX + dir_horiz);
       //snakeY.add(0,PUMouseY + dir_vertic);
-      snakeX.add(snakeX.size()-1,PUMouseX);
-      snakeY.add(snakeX.size()-1,PUMouseY);
+      eaten = true;
       
       PUMouseX = (int) random(0,(initWidth/PUSize));
       PUMouseY = (int) random(0,(initWidth/PUSize));

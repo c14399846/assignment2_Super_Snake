@@ -26,8 +26,7 @@ class Fruit extends GameObjects //implements Powerup
       //snakeX.add(0,PUFruitX + dir_horiz);
       //snakeY.add(0,PUFruitY + dir_vertic);
       
-      snakeX.add(snakeX.size()-1,PUFruitX);
-      snakeY.add(snakeX.size()-1,PUFruitY);
+      eaten = true;
       
       PUFruitX = (int) random(0,(initWidth/PUSize));
       PUFruitY = (int) random(0,(initWidth/PUSize));
