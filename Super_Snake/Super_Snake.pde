@@ -242,19 +242,32 @@ void controlEvent(ControlEvent buttonPressed)
   }
   
   if(buttonPressed.controller().getName().equals("Easy")){
-    easy = true;
+    easy = !easy;
+    norm = false;
+    hard = false;
+    xtrm = false;
   }  
   
   if(buttonPressed.controller().getName().equals("Normal")){
-    norm = true;
+    norm = !norm;
+    easy = false;
+    hard = false;
+    xtrm = false;
+    
   }  
   
   if(buttonPressed.controller().getName().equals("Hard")){
-    hard = true;
+    hard = !hard;
+    easy = false;
+    norm = false;
+    xtrm = false;
   }  
   
   if(buttonPressed.controller().getName().equals("Extreme")){
-    xtrm = true;
+    xtrm = !xtrm;
+    easy = false;
+    norm = false;
+    hard = false;
   }  
 }
 
