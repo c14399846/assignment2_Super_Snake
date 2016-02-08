@@ -67,7 +67,6 @@ boolean game0 = true;//where there are no walls
 boolean game1 = false;
 boolean game2 = false;
 
-boolean keyActive=false;//used for direction checks *****
 
 
 
@@ -121,6 +120,7 @@ color cherryLine = color(0,175,0);
 
 ArrayList<Integer> snakeX = new ArrayList<Integer>();
 ArrayList<Integer> snakeY = new ArrayList<Integer>();
+ArrayList<Integer> snakeBack = new ArrayList<Integer>();
 ArrayList<GameObjects> gameObjects = new ArrayList<GameObjects>();
 
 
@@ -191,7 +191,7 @@ void snakeSetup()
   dir_horiz = dirSnake[1];
   dir_vertic = dirSnake[0];
   
-  score = 0;
+  snake.score = 0;
   
   
   /* ********* the pu positions will be changed to PUX and PUY, and will be passed into each class,
@@ -298,17 +298,15 @@ void draw()
   deather();
   
   if(!gameOver)
-  {  
-    
-    snake.update();
-    snake.render(); 
-    
+  {
     mouse.update();
     mouse.render();
     
     cherry.update();
     cherry.render();
     
+    snake.update();
+    snake.render(); 
        
   }
   
@@ -320,3 +318,13 @@ void deather()
   mouse.CheckDeath();
   cherry.CheckDeath();
 }
+
+/*void hider()
+{
+  if(!(snakeX.get(1)*snakeSize == snakeSize && snakeY.get(1)*snakeSize == snakeSize))
+  {
+    fill(0);
+    stroke(0);
+    rect(snakeSize,snakeSize,snakeSize,snakeSize);
+  }
+}*/

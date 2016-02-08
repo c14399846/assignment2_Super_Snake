@@ -22,14 +22,13 @@ class Mouse extends GameObjects //implements Powerup
   {
     if(snakeX.get(0) == PUMouseX && snakeY.get(0) == PUMouseY)
     {
-      score+=3;
+      println("m eaten");
+      snake.score+=3;
       
-      //adds size to snake, but leaves some strange artifact
-      snakeX.add(snakeX.size()-1, 1);
-      snakeY.add(snakeY.size()-1, 1);
-      snakeX.add(snakeX.size()-1, 1);
-      snakeY.add(snakeY.size()-1, 1);
-      
+      //snakeX.add(0,PUMouseX + dir_horiz);
+      //snakeY.add(0,PUMouseY + dir_vertic);
+      snakeX.add(snakeX.size()-1,PUMouseX);
+      snakeY.add(snakeX.size()-1,PUMouseY);
       
       PUMouseX = (int) random(0,(initWidth/PUSize));
       PUMouseY = (int) random(0,(initWidth/PUSize));
@@ -40,7 +39,7 @@ class Mouse extends GameObjects //implements Powerup
   void frightened()
   {
     //sound_squeek.play();
-    println("squeek!");
+    //println("squeek!");
     
     //code for making the mouse shake
   }

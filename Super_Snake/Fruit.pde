@@ -20,16 +20,28 @@ class Fruit extends GameObjects //implements Powerup
   {
     if(snakeX.get(0) == PUFruitX && snakeY.get(0) == PUFruitY)
     {
-      score++;
+      println("f eaten");
+      snake.score++;
       
-      //adds size to snake, but leaves some strange artifact
-      snakeX.add(snakeX.size()-1, 1);
-      snakeY.add(snakeY.size()-1, 1);
+      //snakeX.add(0,PUFruitX + dir_horiz);
+      //snakeY.add(0,PUFruitY + dir_vertic);
       
+      snakeX.add(snakeX.size()-1,PUFruitX);
+      snakeY.add(snakeX.size()-1,PUFruitY);
       
       PUFruitX = (int) random(0,(initWidth/PUSize));
       PUFruitY = (int) random(0,(initWidth/PUSize));
     }
   }
+  
+  
+  
+  /*void applyTo(Snake snake)
+  {
+    snake.score++;
+    snakeX.add(snakeX.size()-1, 1);
+    snakeY.add(snakeY.size()-1, 1);
+  }*/
+  
   
 }

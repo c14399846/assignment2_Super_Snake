@@ -1,10 +1,10 @@
 class Snake extends GameObjects
 {
-   //char wasd;
+   int score;
   
    Snake()
    {
-     
+     this.score = 0;
    }
    
   void CheckDeath()
@@ -40,6 +40,14 @@ class Snake extends GameObjects
           //head will be placed on opposite, but dont know if body will too? *******
         }*/
       }
+      
+      for(int i = 1;i < snakeX.size();i++)
+       {
+         if(snakeX.get(i) == snakeX.get(0) && snakeY.get(i) == snakeY.get(0))
+         {
+           //gameOver = true;
+         }
+       }
   }
    
   void snakeReincarnate()
@@ -126,7 +134,7 @@ class Snake extends GameObjects
      {
        //adds a new snake segment to the start
        snakeX.add(0,snakeX.get(0) + dir_horiz);
-       snakeY.add(0,snakeY.get(0) + dir_vertic);
+       snakeY.add(0,snakeY.get(0) + dir_vertic);     
      
        //removes the last snake segment
        snakeX.remove(snakeX.size() - 1);
@@ -151,13 +159,28 @@ class Snake extends GameObjects
      //shape(snakeParts,snakeX.get(0)*snakeSize,snakesnakeY.get(0)*snakeSize);
     
      //snake body
-     for(int i = 1;i < snakeX.size(); i++)
-     {
-       fill(sB);
-       //snakeParts.setFill(sB);
-       rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeBodyCurv);
-       // shape(snakeParts,snakeX.get(i)*snakeSize,snakesnakeY.get(i)*snakeSize);
+       for(int i = 1;i < snakeX.size(); i++)
+       {
+         fill(sB);
+         //snakeParts.setFill(sB);
+         rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeBodyCurv);
+         // shape(snakeParts,snakeX.get(i)*snakeSize,snakesnakeY.get(i)*snakeSize);
+         
+         strokeWeight(3);
+         stroke(0);
+         
+         /*if(key == 'w' || key == 's' || key == 'W' || key == 'S')
+         {
+           line(snakeX.get(i)*snakeSize+(snakeSize*0.5),snakeY.get(i)*snakeSize+(1),snakeX.get(i)*snakeSize+(snakeSize*0.5),snakeY.get(i)*snakeSize+(snakeSize-1));
+         }
+         else if(key == 'a' || key == 'd' || key == 'A' || key == 'D')
+         {
+           line(snakeX.get(i)*snakeSize+1,snakeY.get(i)*snakeSize+(snakeSize*0.5),snakeX.get(i)*snakeSize+(snakeSize-1),snakeY.get(i)*snakeSize+(snakeSize*0.5));
+         }*/
      }
+     println(snakeX.get(0) + "  " + snakeY.get(0));
+     println("2:  " + snakeX.get(1) + "  " + snakeY.get(1));
+     println("3:  " + snakeX.get(2) + "  " + snakeY.get(2));
    }
    
    
