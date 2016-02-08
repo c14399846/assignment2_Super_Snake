@@ -312,7 +312,7 @@ void gamePlay()
   // will be moved later, into a switch statement or otherwise into menu system ***** 
   deather();
   
-  if(!gameOver)
+  if(!gameOver && play)
   {
     mouse.update();
     mouse.render();

@@ -54,10 +54,14 @@ class Snake extends GameObjects
             {
               snakeReincarnate();//restarts snake
             }
-            /*else if(key == 'm' || key == 'M')
+            else if(key == 'm' || key == 'M')
             { 
               //menu stuff, could be exchanged for buttons, or have both
-            }*/
+              
+              snakeReincarnate();
+              play = false;
+              menu = true;
+            }
           }
       }
   }
