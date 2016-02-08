@@ -122,7 +122,8 @@ class Snake extends GameObjects
   
   void PUEaten()
   {
-    //sound_eat.play();//plays sound 'nom' or something to that effect
+    sound_eat.rewind();
+    sound_eat.play();//plays sound 'nom' or something to that effect
     eaten = false;
   }
    
@@ -199,8 +200,8 @@ class Snake extends GameObjects
        //snakeParts.setFill(sB);
        rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeBodyCurv);
        //shape(snakeParts,snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize);
-         
-       strokeWeight(3);
+       
+       strokeWeight(2);
        stroke(0);
          
        /*if(key == 'w' || key == 's' || key == 'W' || key == 'S')

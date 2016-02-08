@@ -1,3 +1,8 @@
+import java.util.*;//used for setSize function
+import controlP5.*;//used for buttons
+//import processing.sound.*;//used for playing and loading in soundfiles
+import ddf.minim.*;
+
 /******
 Game : 
   Snake 
@@ -38,16 +43,13 @@ How things are done:
 
 ******/
 
-import java.util.*;//used for setSize function
-import controlP5.*;//used for buttons
-import processing.sound.*;//used for playing and loading in soundfiles
 
 /*
-SoundFile sound_eat;
-Soundfile sound_die;
-Soundfile sound_newGame;
-SoundFile sound_squeek;
-*/
+Minim sound_eat;
+Minim sound_die;
+Minim sound_newGame;
+Minim sound_squeek;*/
+
 
 //menu system
 boolean play = false;
@@ -146,6 +148,8 @@ Mouse mouse;
 
 Fruit cherry;
 
+Minim minim;
+AudioPlayer sound_eat;
 
 void setup()
 {
@@ -157,13 +161,16 @@ void setup()
   //this is just the snakes first position
   
   snake = new Snake();
-  gameObjects.add(snake);
-  snakeSetup();
-  
   mouse = new Mouse();
-  
   cherry = new Fruit();
   
+  snakeSetup();
+  
+  //snakeSounds();
+  minim = new Minim(this);
+  
+  
+  sound_eat = minim.loadFile("nom.mp3");
   //snakeParts = createShape(RECT, 0, 0, 30, 30, snake.sP, snake.sP);
   
   
@@ -180,6 +187,15 @@ void setup()
   hard_button = controlP5.addButton("Hard" ,1,initWidth/2,initHeight/2 - 225,100,75);
   xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
   */
+}
+
+void snakeSounds()
+{
+  //sound_eat = new Minim(this,"nom.mp3");
+  /*sound_die = new SoundFile(this,"");
+  sound_newGame = new SoundFile(this,"");
+  sound_squeek = new SoundFile(this,"");
+*/
 }
 
 void snakeSetup()
