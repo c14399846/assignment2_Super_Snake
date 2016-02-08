@@ -67,7 +67,7 @@ boolean game0 = true;//where there are no walls
 boolean game1 = false;
 boolean game2 = false;
 
-boolean eaten = false;//if powerup is eaten
+
 
 
 int initHeight = 600;/* ***** CHANGE TO 1200 FOR DEMO ***** */

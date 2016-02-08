@@ -1,9 +1,11 @@
 class Snake extends GameObjects
 {
    int score;
+   boolean eaten;//if powerup is eaten
   
    Snake()
    {
+     this.eaten=false;
      this.score = 0;
    }
    
@@ -123,25 +125,24 @@ class Snake extends GameObjects
    
    void update()
    {
-     
      if(keyPressed)
      {
-       if (key == 'w')
+       if (key == 'w' || key == 'W')
        {
          dir_horiz = dirSnake[0];
          dir_vertic = dirSnake[2];
        }
-       if (key == 's')
+       if (key == 's' || key == 'S')
        {
          dir_horiz = dirSnake[0];
          dir_vertic = dirSnake[1];
        } 
-       if (key == 'a')
+       if (key == 'a' || key == 'A')
        {
          dir_horiz = dirSnake[2];
          dir_vertic = dirSnake[0];
        } 
-       if (key == 'd')
+       if (key == 'd' || key == 'D')
        {
          dir_horiz = dirSnake[1];
          dir_vertic = dirSnake[0];
@@ -167,9 +168,9 @@ class Snake extends GameObjects
          //removes the last snake segment
          snakeX.remove(snakeX.size() - 1);
          snakeY.remove(snakeY.size() - 1);
-       }
+       } 
      }
-     
+
    }//end update
    
    void render()

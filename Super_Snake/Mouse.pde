@@ -1,4 +1,4 @@
-class Mouse extends GameObjects //implements Powerup
+class Mouse extends GameObjects implements Powerup
 {
   
   void update()
@@ -22,18 +22,21 @@ class Mouse extends GameObjects //implements Powerup
   {
     if(snakeX.get(0) == PUMouseX && snakeY.get(0) == PUMouseY)
     {
-      println("m eaten");
-      snake.score+=3;
-      
+      mouse.applyTo(snake);
       //snakeX.add(0,PUMouseX + dir_horiz);
       //snakeY.add(0,PUMouseY + dir_vertic);
-      eaten = true;
       
       PUMouseX = (int) random(0,(initWidth/PUSize));
       PUMouseY = (int) random(0,(initWidth/PUSize));
     }
   }
   
+  void applyTo(Snake snake)
+  {
+    println("m eaten");
+    snake.score += 3;
+    snake.eaten = true;
+  }
   
   void frightened()
   {
