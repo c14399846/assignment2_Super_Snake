@@ -8,6 +8,7 @@ class Snake extends GameObjects
    //int sP;
    color sH;
    color sB;
+   char wasd = key;
    
    
    Snake()
@@ -15,6 +16,7 @@ class Snake extends GameObjects
      //this.sP = snakeHeadCurv;
      this.sH = color(0,100,0);
      this.sB = color(0,255,0);
+     this.wasd = 'w';
    }
    
   void CheckDeath()
@@ -35,6 +37,7 @@ class Snake extends GameObjects
           gameOver=true;
         }*/
         gameOver = true;
+        
         /*else
         {
           //code for placing snake on opposite side of grid, maybe ********
@@ -44,7 +47,7 @@ class Snake extends GameObjects
       
       if(gameOver)
       {
-          fill(0);
+          fill(255);
           textAlign(CENTER);
           textSize(30);
           sound_die.play();
@@ -55,6 +58,13 @@ class Snake extends GameObjects
           text("Press 'r' to reset or 'm' to go to menu",initWidth/2,(initHeight/4) + (0.3 * initHeight));
           checkScore();
           
+          if(higher==true)
+          {
+            textAlign(CENTER);
+            fill(255,0,0);
+            text("New High Score ! : " +snake.score,initWidth/2,initHeight/2 + (0.4*initHeight));
+            fill(255);
+          }
           
           if(keyPressed)
           {
@@ -97,48 +107,11 @@ class Snake extends GameObjects
     
     if(deathScore < score)
     {
+      higher = true;
       hiscore[0] = str(snake.score);
-      saveStrings("data/hiscore.txt", hiscore); 
+      saveStrings("data/hiscore.txt", hiscore);
     }
   }//end checkScore
-  
-   
-  /*void wasdEyes(int i)
-  {
-     switch (wasd)
-     {
-       case 'w':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,5,0,0); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (2),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (2),6,10 ); fill(sH);
-         break;
-       case 'W':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,5,0,0); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (2),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (2),6,10 ); fill(sH);
-         break;
-          
-       case 'a':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,0,0,5); fill(0); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
-         break;
-       case 'A':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,5,0,0,5); fill(0); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (2), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
-         break;
-          
-       case 's':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,0,5,5); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (snakeSize - 12),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (snakeSize -12),6,10 ); fill(sH);
-         break;
-       case 'S':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,0,5,5); fill(0); rect((snakeY.get(i)*snakeSize) + (4), snakeY.get(i)*snakeSize + (snakeSize - 12),6,10 ); rect((snakeY.get(i)*snakeSize) + (16), snakeY.get(i)*snakeSize + (snakeSize -12),6,10 ); fill(sH);
-         break;
-          
-       case 'd':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,5,5,0); fill(0); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
-         break;
-       case 'D':
-         rect(snakeX.get(i)*snakeSize, snakeY.get(i)*snakeSize, snakeSize, snakeSize,0,5,5,0); fill(0); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeY.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
-         break;
-          
-       default:
-         break;
-     }
-  }*/
   
   void PUEaten()
   {
@@ -198,8 +171,9 @@ class Snake extends GameObjects
        fill(sB);
        //snakeParts.setFill(sB);
        
-       
        rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeBodyCurv);
+       
+         
        //shape(snakeParts,snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize);
        
        strokeWeight(2);

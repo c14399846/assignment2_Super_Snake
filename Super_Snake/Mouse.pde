@@ -48,7 +48,6 @@ class Mouse extends GameObjects implements Powerup
   
   void applyTo(Snake snake)
   {
-    println("m eaten");
     snake.score += 3;
     snake.mPU++;
     snake.eaten = true;
@@ -61,21 +60,19 @@ class Mouse extends GameObjects implements Powerup
   
   void frightened()
   {
-    /*
-    need to do time based, or else it will keep repeating
+    //will play sound if in range 3 times in a row, with a second interval per check
     if(passed==3)
     {
+      sound_squeek.rewind();
       println("squeek!");
-      //sound_squeek.play();
+      sound_squeek.play();
       passed = 0;
     }
     
-    
-    passed++;
-    
-    */
-    
-    //code for making the mouse shake
+    if(frameCount % 60 == 0)
+    {
+      passed++; 
+    }
   }
   
   //checks for mouse spawning on snake body

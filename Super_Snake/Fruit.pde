@@ -44,7 +44,6 @@ class Fruit extends GameObjects implements Powerup
   
   void applyTo(Snake snake)
   {
-    println("f eaten");
     snake.score ++;
     snake.fPU ++;
     snake.eaten = true;

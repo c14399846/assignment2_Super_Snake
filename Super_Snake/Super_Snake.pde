@@ -60,11 +60,11 @@ boolean xtrm = false;
 //game status
 //this is for the wall system, game over if you die, other
 boolean gameOver = false;
-boolean game0 = true;//where there are no walls
+/*boolean game0 = true;//where there are no walls
 boolean game1 = false;
-boolean game2 = false;
+boolean game2 = false;*/
 
-boolean moved;
+boolean higher;//checks if new score is achieved
 
 boolean keyedW=true;
 boolean keyedA=false;
@@ -72,7 +72,6 @@ boolean keyedS=false;
 boolean keyedD=false;
 
 String difficSel = "";
-char wasd;
 
 int initHeight = 600;/* ***** CHANGE TO 1200 FOR DEMO ***** */
 int initWidth = 600;
@@ -110,14 +109,10 @@ int dir_vertic;
 
 ArrayList<Integer> snakeX = new ArrayList<Integer>();
 ArrayList<Integer> snakeY = new ArrayList<Integer>();
-ArrayList<Integer> snakeBack = new ArrayList<Integer>();
-
-ArrayList<Integer> scoreKeeper = new ArrayList<Integer>();
-
-ArrayList<GameObjects> gameObjects = new ArrayList<GameObjects>();
+//ArrayList<Integer> snakeBack = new ArrayList<Integer>();
+//ArrayList<loadIn> scoreKeeper = new ArrayList<loadIn>();
 
 String[] hiscore;
-
 
 
 //classes
@@ -139,17 +134,16 @@ controlP5.Button norm_button;
 controlP5.Button hard_button;
 controlP5.Button xtrm_button;
 
-Snake snake;
 PShape snakeParts;
-
+Snake snake;
 Mouse mouse;
-
 Fruit cherry;
 
 Minim minim;
 AudioPlayer sound_eat;
 AudioPlayer sound_eat2;
 AudioPlayer sound_die;
+AudioPlayer sound_squeek;
 
 void setup()
 {
@@ -171,12 +165,12 @@ void setup()
   
   //snakeParts = createShape(RECT, 0, 0, 30, 30, snake.sP, snake.sP);
   
+  //high scores txt
   hiscore = loadStrings("hiscore.txt");
   
   
-  /***** will be added back in later, after game runs fine on its own*****/
-  
   cP5 = new ControlP5(this); //button class
+  
   
   menu_button = cP5.addButton("Main Menu" ,1,0,0,buttonX,buttonY);
   play_button = cP5.addButton("Play" ,1,0,0,buttonX,buttonY);
@@ -184,15 +178,21 @@ void setup()
   reset_button = cP5.addButton("Reset" ,1,buttonX*2,0,buttonX,buttonY);
   mute_button = cP5.addButton("Mute" ,1,buttonX*3,0,buttonX,buttonY);
   
-  easy_button = cP5.addButton("Easy" ,1,initWidth/2,initHeight/2 - 75,100,75);
-  norm_button = cP5.addButton("Normal" ,1,initWidth/2,initHeight/2 - 150,100,75);
-  hard_button = cP5.addButton("Hard" ,1,initWidth/2,initHeight/2 - 225,100,75);
-  xtrm_button = cP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
+  cP5.setColorBackground(color(0,150,150));
+  cP5.setColorForeground(color(0,120,120));
+  cP5.setColorActive(color(0,130,130));
   
-  dropDiff = cP5.addDropdownList("Difficulty")
+  easy_button = cP5.addButton("Easy" ,1,0,buttonY,buttonX,buttonY);
+  norm_button = cP5.addButton("Normal" ,1,0,buttonY*2,buttonX,buttonY);
+  hard_button = cP5.addButton("Hard" ,1,0,buttonY*3,buttonX,buttonY);
+  xtrm_button = cP5.addButton("Extreme" ,1,0,buttonY*4,buttonX,buttonY);
+  
+  /*dropDiff = cP5.addDropdownList("Difficulty")
                       .setPosition(buttonX,0)
                       .setSize(buttonX,buttonY)
-                      .setBarHeight(buttonY);
+                      .setBarHeight(buttonY)
+                      .setItemHeight(buttonY)
+                      .addItem("Easy",1).addItem("Normal",2).addItem("Hard",3).addItem("Xtreme",4);*/
 }
 
 void snakeSounds()
@@ -200,6 +200,7 @@ void snakeSounds()
   sound_eat = minim.loadFile("nom.mp3");
   sound_eat2 = minim.loadFile("mih.mp3");
   sound_die = minim.loadFile("snakeShake3.mp3");
+  sound_squeek = minim.loadFile("squeek.mp3");
 }
 
 void snakeSetup()
@@ -210,7 +211,7 @@ void snakeSetup()
   dir_vertic = dirSnake[0];
   
   snake.score = 0;
-  snake.mPU = 0;// ***************NEED TO ADD INTO A TXT OR CSV FILE LATER ON
+  snake.mPU = 0;
   snake.fPU = 0;  
   
   /* ********* the pu positions will be changed to PUX and PUY, and will be passed into each class,
@@ -227,6 +228,8 @@ void snakeSetup()
   //fruit position
   PUFruitX = (int) random(0,(initWidth/snakeSize));
   PUFruitY = (int) random(0,(initHeight/snakeSize));
+  
+  higher = false;
 }
 
 
@@ -310,7 +313,7 @@ void controlEvent(ControlEvent buttonPressed)
 void menu()
 {
   menu_button.hide();
-  dropDiff.hide();
+  //dropDiff.hide();
   
   easy_button.hide();
   norm_button.hide();
@@ -340,7 +343,7 @@ void gameMode()
     reset_button.hide();
     mute_button.hide();
     
-    dropDiff.show();
+    //dropDiff.show();
     menu_button.show();
     easy_button.show();
     norm_button.show();
@@ -363,7 +366,7 @@ void gamePlay()
     mouse.render();
     
     snake.update();
-    snake.render(); 
+    snake.render();
     
     cherry.update();
     cherry.render();
@@ -377,7 +380,7 @@ void draw()
 {
   frameRate(fps);
   //need to increase speed in another way
-  background(255);
+  background(0);
   
   /***** removed just for testing purposes, will be added back in after game runs fine *****/
   if(menu == true)
@@ -405,11 +408,12 @@ void menuStats()
 {
   if(!play)
   {
-    fill(0);
+    fill(255);
     //textAlign(RIGHT);
     textSize(16);
     
-    text("Difficulty: "+difficSel,initWidth - buttonX*3,buttonY*2);
+    text("Difficulty: " +difficSel,initWidth - buttonX*3,buttonY*2);
+    text("Current Highest Score: " +hiscore[0],initWidth - buttonX*3,buttonY*2.5);
   }
 }
 
