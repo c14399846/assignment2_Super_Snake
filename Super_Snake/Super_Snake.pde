@@ -47,6 +47,7 @@ How things are done:
 boolean play = false;
 boolean menu = true;
 boolean mode = false;
+boolean diffic = false;
 
 //mode system
 boolean easy = false;
@@ -80,6 +81,9 @@ int difficulty = 3; /* ***** CHANGE TO 0 AFTER BUTTONS ARE RE-ENABLED, 3 is easi
 int PUCurv = snakeBodyCurv;
 int PUSize = snakeSize;
 
+int buttonX = 75;
+int buttonY = 50;
+
 
 /* ***** WILL BE CHANGED LATER ***** */
 
@@ -111,6 +115,9 @@ String[] hiscore;
 
 //classes
 ControlP5 controlP5;
+
+
+DropdownList dropDiff;
 
 //Main menu buttons
 controlP5.Button play_button;
@@ -165,15 +172,20 @@ void setup()
   
   controlP5 = new ControlP5(this); //button class
   
-  menu_button = controlP5.addButton("Main Menu" ,1,initWidth/2,initHeight/2,100,75);
-  play_button = controlP5.addButton("Play" ,1,initWidth/2,initHeight/2 - 75,100,75);
-  mode_button = controlP5.addButton("Game Mode" ,1,initWidth/2,initHeight/2 - 150,100,75);
-  reset_button = controlP5.addButton("Reset" ,1,initWidth/2,initHeight/2 - 225,100,75);
+  menu_button = controlP5.addButton("Main Menu" ,1,0,0,buttonX,buttonY);
+  play_button = controlP5.addButton("Play" ,1,0,0,buttonX,buttonY);
+  mode_button = controlP5.addButton("Game Mode" ,1,buttonX,0,buttonX,buttonY);
+  reset_button = controlP5.addButton("Reset" ,1,buttonX*2,0,buttonX,buttonY);
   
   easy_button = controlP5.addButton("Easy" ,1,initWidth/2,initHeight/2 - 75,100,75);
   norm_button = controlP5.addButton("Normal" ,1,initWidth/2,initHeight/2 - 150,100,75);
   hard_button = controlP5.addButton("Hard" ,1,initWidth/2,initHeight/2 - 225,100,75);
   xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
+  
+  dropDiff = controlP5.addDropdownList("Difficulty")
+                      .setPosition(buttonX,0)
+                      .setSize(buttonX,buttonY)
+                      .setBarHeight(buttonY);
   
 }
 
@@ -225,11 +237,20 @@ void controlEvent(ControlEvent buttonPressed)
   if(buttonPressed.controller().getName().equals("Reset")){
     hiscore[0] = str(0);
     saveStrings("daata/hiscore.txt",hiscore);
+    
+    //textFont(Arial);
+    /*
+    stroke(0);
+    textAlign(CENTER);
+    textSize(20);
+    text("Hiscore has been reset to 0",initWidth/2,initHeight/2);*/
   }
   
   if(buttonPressed.controller().getName().equals("Game Mode")){
     menu = false;
+    diffic = false;
     mode = true;
+    diffic = true;
   }
   
   if(buttonPressed.controller().getName().equals("Play")){
@@ -270,6 +291,7 @@ void controlEvent(ControlEvent buttonPressed)
 void menu()
 {
   menu_button.hide();
+  dropDiff.hide();
   
   easy_button.hide();
   norm_button.hide();
@@ -295,6 +317,7 @@ void gameMode()
     play_button.hide();
     reset_button.hide();
     
+    dropDiff.show();
     menu_button.show();
     easy_button.show();
     norm_button.show();
