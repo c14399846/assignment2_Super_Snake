@@ -135,8 +135,8 @@ class Snake extends GameObjects
   
   void PUEaten()
   {
-    sound_eat.rewind();
-    sound_eat.play();//plays sound 'nom' or something to that effect
+    sound_eat2.rewind();
+    sound_eat2.play();//plays sound 'nom' or something to that effect
     eaten = false;
   }
    

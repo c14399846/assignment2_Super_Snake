@@ -3,10 +3,16 @@ class Fruit extends GameObjects implements Powerup
   
   color cherryCol;
   color cherryLine;
-  void update()
+  
+  Fruit()
   {
     this.cherryCol = color(200,0,0);
     this.cherryLine = color(0,175,0);
+  }
+  
+  void update()
+  {
+    
   }
   
   void render()
@@ -42,14 +48,18 @@ class Fruit extends GameObjects implements Powerup
     snake.eaten = true;
   }
   
-  
-  
-  /*void applyTo(Snake snake)
+  //checks for fruit spawning on snake body
+  void checkCollisions()
   {
-    snake.score++;
-    snakeX.add(snakeX.size()-1, 1);
-    snakeY.add(snakeY.size()-1, 1);
-  }*/
+    for(int i = 1;i<snakeX.size();i++)
+    {
+      if(PUFruitX == snakeX.get(i) && PUFruitY == snakeX.get(i))
+      {
+        PUFruitX = (int) random(0,(initWidth/PUSize));
+        PUFruitY = (int) random(0,(initWidth/PUSize));
+      }
+    }
+  }
   
   
 }

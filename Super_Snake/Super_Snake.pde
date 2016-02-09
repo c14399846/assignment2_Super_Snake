@@ -132,6 +132,7 @@ Fruit cherry;
 
 Minim minim;
 AudioPlayer sound_eat;
+AudioPlayer sound_eat2;
 
 void setup()
 {
@@ -153,6 +154,7 @@ void setup()
   
   
   sound_eat = minim.loadFile("nom.mp3");
+  sound_eat2 = minim.loadFile("mih.mp3");
   //snakeParts = createShape(RECT, 0, 0, 30, 30, snake.sP, snake.sP);
   
   hiscore = loadStrings("hiscore.txt");
@@ -346,13 +348,3 @@ void deather()
   mouse.CheckDeath();
   cherry.CheckDeath();
 }
-
-/*void hider()
-{
-  if(!(snakeX.get(1)*snakeSize == snakeSize && snakeY.get(1)*snakeSize == snakeSize))
-  {
-    fill(0);
-    stroke(0);
-    rect(snakeSize,snakeSize,snakeSize,snakeSize);
-  }
-}*/
