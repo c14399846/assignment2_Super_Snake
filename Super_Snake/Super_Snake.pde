@@ -198,7 +198,7 @@ void setup()
 void snakeSounds()
 {
   sound_eat = minim.loadFile("nom.mp3");
-  sound_eat2 = minim.loadFile("mih.mp3");
+  sound_eat2 = minim.loadFile("snakeEat3.mp3");
   sound_die = minim.loadFile("snakeShake3.mp3");
   sound_squeek = minim.loadFile("squeek.mp3");
 }
@@ -209,6 +209,11 @@ void snakeSetup()
   for(int i =0;i<5;i++){snakeX.add(i);snakeY.add(i);}// ***** might need changes,looks cool though
   dir_horiz = dirSnake[1];
   dir_vertic = dirSnake[0];
+  
+  keyedD=true;
+  keyedA=false;
+  keyedS=false;
+  keyedW=false;
   
   snake.score = 0;
   snake.mPU = 0;
@@ -444,61 +449,39 @@ void deather()
 
 void keyPressed()
 {
-   if (key == 'w' || key == 'W')
+   if ((key == 'w' || key == 'W') && (keyedS != true))
    {
      dir_horiz = dirSnake[0];
      dir_vertic = dirSnake[2];
      keyedW=true;
+     keyedA = false;
+     keyedD = false;
    }
    
-   if (key == 's' || key == 'S')
+   if ((key == 's' || key == 'S') && (keyedW !=true))
    {
-     keyedS = true;
      dir_horiz = dirSnake[0];
      dir_vertic = dirSnake[1];
+     keyedS = true;
+     keyedA = false;
+     keyedD = false;
    } 
    
-   if (key == 'a' || key == 'A')
+   if ((key == 'a' || key == 'A')  && (keyedD != true))
    {
-     keyedA = true;
      dir_horiz = dirSnake[2];
      dir_vertic = dirSnake[0];
+     keyedA = true;
+     keyedW = false;
+     keyedS = false;
    } 
    
-   if (key == 'd' || key == 'D')
+   if ((key == 'd' || key == 'D') && (keyedA != true))
    {
-     keyedD = true;
      dir_horiz = dirSnake[1];
      dir_vertic = dirSnake[0];
-   }
-   
-   /*switch (wasd)
-   {
-     case 'w':
-       dir_horiz = dirSnake[0];
-       dir_vertic = dirSnake[2];
-       break;
-       
-     case 'a':
-       dir_horiz = dirSnake[2];
-       dir_vertic = dirSnake[0];
-       break;
-       
-     case 's':
-       dir_horiz = dirSnake[0];
-       dir_vertic = dirSnake[1];
-       break;
-       
-     case 'd':
-       dir_horiz = dirSnake[1];
-       dir_vertic = dirSnake[0];
-       break;
-       
-     default:
-       break;
-     //case 'w':
-       //break;
-   }*/
-   
-   
+     keyedD = true;
+     keyedW = false;
+     keyedS = false;
+   }   
 }
