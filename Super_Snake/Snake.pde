@@ -3,6 +3,7 @@ class Snake extends GameObjects
    int score;
    int mPU;
    int fPU;
+   int deathScore;   
    boolean eaten;//if powerup is eaten
    //int sP;
    color sH;
@@ -50,7 +51,7 @@ class Snake extends GameObjects
           text("Score: " + score,initWidth/2,(initHeight/2) + (0.1 * initHeight));
           text("Cherry: " + snake.fPU + " Mice: " + snake.mPU,initWidth/2,(initHeight/2) + (0.2 * initHeight));
           text("Press 'r' to reset or 'm' to go to menu",initWidth/2,(initHeight/2) + (0.3 * initHeight));
-          
+          checkScore();
           
           if(keyPressed)
           {
@@ -76,19 +77,24 @@ class Snake extends GameObjects
     snakeX.clear();
     snakeY.clear();
     
-    //checkScore();
-    
     //re-adds first 5 snake body parts to the arraylist, gives initial direction(right)
     snakeSetup();
     
     gameOver = false;
   }
   
-  //function to check score of player, will have string of 3 length for username, and score of current player
+  //checks current player score and hiscore stored in txt file
   void checkScore()
-  {
-    /* ***** ADD CODE FOR SCORE CHECK ***** */
+  {    
+    deathScore = Integer.parseInt(hiscore[0]);
+    
+    if(deathScore < score)
+    {
+      hiscore[0] = str(snake.score);
+      saveStrings("data/hiscore.txt", hiscore); 
+    }
   }
+  
    
   /*void wasdEyes(int i)
   {

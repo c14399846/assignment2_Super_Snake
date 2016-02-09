@@ -1,7 +1,6 @@
 import java.util.*;//used for setSize function
 import controlP5.*;//used for buttons
-//import processing.sound.*;//used for playing and loading in soundfiles
-import ddf.minim.*;
+import ddf.minim.*;//used for sound
 
 /******
 Game : 
@@ -101,7 +100,12 @@ int dir_vertic;
 ArrayList<Integer> snakeX = new ArrayList<Integer>();
 ArrayList<Integer> snakeY = new ArrayList<Integer>();
 ArrayList<Integer> snakeBack = new ArrayList<Integer>();
+
+ArrayList<Integer> scoreKeeper = new ArrayList<Integer>();
+
 ArrayList<GameObjects> gameObjects = new ArrayList<GameObjects>();
+
+String[] hiscore;
 
 
 
@@ -151,6 +155,7 @@ void setup()
   sound_eat = minim.loadFile("nom.mp3");
   //snakeParts = createShape(RECT, 0, 0, 30, 30, snake.sP, snake.sP);
   
+  hiscore = loadStrings("hiscore.txt");
   
   
   /***** will be added back in later, after game runs fine on its own*****/
