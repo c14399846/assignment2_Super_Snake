@@ -357,11 +357,13 @@ void gamePlay()
     mouse.update();
     mouse.render();
     
+    snake.update();
+    snake.render(); 
+    
     cherry.update();
     cherry.render();
     
-    snake.update();
-    snake.render();    
+       
   }
 }
 
@@ -396,11 +398,14 @@ void draw()
 
 void menuStats()
 {
-  fill(0);
-  //textAlign(RIGHT);
-  textSize(10);
-  
-  text("Difficulty: "+difficSel,initWidth - buttonX*3,buttonY*2);
+  if(!play)
+  {
+    fill(0);
+    //textAlign(RIGHT);
+    textSize(16);
+    
+    text("Difficulty: "+difficSel,initWidth - buttonX*3,buttonY*2);
+  }
 }
 
 //checks for sound mute
@@ -426,4 +431,28 @@ void deather()
   snake.CheckDeath();
   mouse.CheckDeath();
   cherry.CheckDeath();
+}
+
+void keyPressed()
+{
+   if (key == 'w' || key == 'W')
+   {
+     dir_horiz = dirSnake[0];
+     dir_vertic = dirSnake[2];
+   }
+   if (key == 's' || key == 'S')
+   {
+     dir_horiz = dirSnake[0];
+     dir_vertic = dirSnake[1];
+   } 
+   if (key == 'a' || key == 'A')
+   {
+     dir_horiz = dirSnake[2];
+     dir_vertic = dirSnake[0];
+   } 
+   if (key == 'd' || key == 'D')
+   {
+     dir_horiz = dirSnake[1];
+     dir_vertic = dirSnake[0];
+   }
 }

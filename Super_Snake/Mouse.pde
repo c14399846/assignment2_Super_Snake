@@ -90,4 +90,4 @@ class Mouse extends GameObjects implements Powerup
       }
     }
   }
-}
+}//end class

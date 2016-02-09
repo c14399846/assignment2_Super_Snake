@@ -30,10 +30,11 @@ class Snake extends GameObjects
     
       if(snakeX.get(0) >= (initWidth/snakeSize) || snakeX.get(0) < 0  || snakeY.get(0) >= (initHeight/snakeSize) || snakeY.get(0) < 0)
       {
-        if(!easy || !norm)//if you're playing on a difficulty above easy and normal
+        /*if(!easy || !norm)//if you're playing on a difficulty above easy and normal
         {
           gameOver=true;
-        }
+        }*/
+        gameOver = true;
         /*else
         {
           //code for placing snake on opposite side of grid, maybe ********
@@ -46,7 +47,7 @@ class Snake extends GameObjects
           fill(0);
           textAlign(CENTER);
           textSize(30);
-          delay(200);sound_die.play();
+          sound_die.play();
           text("Game Over.",initWidth/2,initHeight/2);
           textSize(20);
           text("Score: " + score,initWidth/2,(initHeight/2) + (0.1 * initHeight));
@@ -68,11 +69,12 @@ class Snake extends GameObjects
               snakeReincarnate();
               play = false;
               menu = true;
-              modeSel = false;
+              //modeSel = false;
+              //difficSel = "";
             }
           }
       }
-  }
+  }//end checkDeath
    
   void snakeReincarnate()
   {
@@ -86,7 +88,7 @@ class Snake extends GameObjects
     snakeSetup();
     
     gameOver = false;
-  }
+  }//end snakeReincarnate
   
   //checks current player score and hiscore stored in txt file
   void checkScore()
@@ -98,7 +100,7 @@ class Snake extends GameObjects
       hiscore[0] = str(snake.score);
       saveStrings("data/hiscore.txt", hiscore); 
     }
-  }
+  }//end checkScore
   
    
   /*void wasdEyes(int i)
@@ -146,36 +148,10 @@ class Snake extends GameObjects
       sound_eat2.play();//plays sound 'nom' or something to that effect
       eaten = false;
     }
-  }
+  }//end PUEaten
    
    void update()
    {
-     if(keyPressed)
-     {
-       if (key == 'w' || key == 'W')
-       {
-         dir_horiz = dirSnake[0];
-         dir_vertic = dirSnake[2];
-       }
-       if (key == 's' || key == 'S')
-       {
-         dir_horiz = dirSnake[0];
-         dir_vertic = dirSnake[1];
-       } 
-       if (key == 'a' || key == 'A')
-       {
-         dir_horiz = dirSnake[2];
-         dir_vertic = dirSnake[0];
-       } 
-       if (key == 'd' || key == 'D')
-       {
-         dir_horiz = dirSnake[1];
-         dir_vertic = dirSnake[0];
-       }
-       //wasd=key;
-     }//end if keyPressed
-     
-     
      //body part movement
      if(frameCount%difficulty==0) 
      {
@@ -188,7 +164,7 @@ class Snake extends GameObjects
          PUEaten();
        }
        
-       else if(!eaten)
+       else
        {
          //removes the last snake segment
          snakeX.remove(snakeX.size() - 1);
