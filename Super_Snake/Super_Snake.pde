@@ -116,6 +116,7 @@ ControlP5 controlP5;
 controlP5.Button play_button;
 controlP5.Button menu_button;
 controlP5.Button mode_button;
+controlP5.Button reset_button;
 
 //Mode buttons
 controlP5.Button easy_button;
@@ -167,6 +168,7 @@ void setup()
   menu_button = controlP5.addButton("Main Menu" ,1,initWidth/2,initHeight/2,100,75);
   play_button = controlP5.addButton("Play" ,1,initWidth/2,initHeight/2 - 75,100,75);
   mode_button = controlP5.addButton("Game Mode" ,1,initWidth/2,initHeight/2 - 150,100,75);
+  reset_button = controlP5.addButton("Reset" ,1,initWidth/2,initHeight/2 - 225,100,75);
   
   easy_button = controlP5.addButton("Easy" ,1,initWidth/2,initHeight/2 - 75,100,75);
   norm_button = controlP5.addButton("Normal" ,1,initWidth/2,initHeight/2 - 150,100,75);
@@ -220,6 +222,11 @@ void controlEvent(ControlEvent buttonPressed)
     menu = true;
   }
   
+  if(buttonPressed.controller().getName().equals("Reset")){
+    hiscore[0] = str(0);
+    saveStrings("daata/hiscore.txt",hiscore);
+  }
+  
   if(buttonPressed.controller().getName().equals("Game Mode")){
     menu = false;
     mode = true;
@@ -271,6 +278,7 @@ void menu()
   
   play_button.show();
   mode_button.show();
+  reset_button.show();
 
   //the game requires you to choose a difficulty to play, resets to false at end of game
   mode = false;
@@ -285,6 +293,7 @@ void gameMode()
 {
     mode_button.hide();
     play_button.hide();
+    reset_button.hide();
     
     menu_button.show();
     easy_button.show();
@@ -297,6 +306,7 @@ void gamePlay()
 {
   mode_button.hide();
   play_button.hide();
+  reset_button.hide();
   // will be moved later, into a switch statement or otherwise into menu system ***** 
   deather();
   
