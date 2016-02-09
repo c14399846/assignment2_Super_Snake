@@ -66,8 +66,13 @@ boolean game2 = false;
 
 boolean moved;
 
-String difficSel = "";
+boolean keyedW=true;
+boolean keyedA=false;
+boolean keyedS=false;
+boolean keyedD=false;
 
+String difficSel = "";
+char wasd;
 
 int initHeight = 600;/* ***** CHANGE TO 1200 FOR DEMO ***** */
 int initWidth = 600;
@@ -439,20 +444,57 @@ void keyPressed()
    {
      dir_horiz = dirSnake[0];
      dir_vertic = dirSnake[2];
+     keyedW=true;
    }
+   
    if (key == 's' || key == 'S')
    {
+     keyedS = true;
      dir_horiz = dirSnake[0];
      dir_vertic = dirSnake[1];
    } 
+   
    if (key == 'a' || key == 'A')
    {
+     keyedA = true;
      dir_horiz = dirSnake[2];
      dir_vertic = dirSnake[0];
    } 
+   
    if (key == 'd' || key == 'D')
    {
+     keyedD = true;
      dir_horiz = dirSnake[1];
      dir_vertic = dirSnake[0];
    }
+   
+   /*switch (wasd)
+   {
+     case 'w':
+       dir_horiz = dirSnake[0];
+       dir_vertic = dirSnake[2];
+       break;
+       
+     case 'a':
+       dir_horiz = dirSnake[2];
+       dir_vertic = dirSnake[0];
+       break;
+       
+     case 's':
+       dir_horiz = dirSnake[0];
+       dir_vertic = dirSnake[1];
+       break;
+       
+     case 'd':
+       dir_horiz = dirSnake[1];
+       dir_vertic = dirSnake[0];
+       break;
+       
+     default:
+       break;
+     //case 'w':
+       //break;
+   }*/
+   
+   
 }

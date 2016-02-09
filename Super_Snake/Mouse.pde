@@ -20,8 +20,6 @@ class Mouse extends GameObjects implements Powerup
     {
       frightened();
     }
-    
-    checkCollisions();
   }
   
   void render()
@@ -43,6 +41,8 @@ class Mouse extends GameObjects implements Powerup
       
       PUMouseX = (int) random(0,(initWidth/PUSize));
       PUMouseY = (int) random(0,(initWidth/PUSize));
+      
+      mouse.checkCollisions();
     }
   }
   
@@ -81,7 +81,7 @@ class Mouse extends GameObjects implements Powerup
   //checks for mouse spawning on snake body
   void checkCollisions()
   {
-    for(int i = 1;i<snakeX.size();i++)
+    for(int i = 0;i<snakeX.size();i++)
     {
       if(PUMouseX == snakeX.get(i) && PUMouseY == snakeX.get(i))
       {

@@ -48,11 +48,11 @@ class Snake extends GameObjects
           textAlign(CENTER);
           textSize(30);
           sound_die.play();
-          text("Game Over.",initWidth/2,initHeight/2);
+          text("Game Over.",initWidth/2,initHeight/4);
           textSize(20);
-          text("Score: " + score,initWidth/2,(initHeight/2) + (0.1 * initHeight));
-          text("Cherry: " + snake.fPU + " Mice: " + snake.mPU,initWidth/2,(initHeight/2) + (0.2 * initHeight));
-          text("Press 'r' to reset or 'm' to go to menu",initWidth/2,(initHeight/2) + (0.3 * initHeight));
+          text("Score: " + score,initWidth/2,(initHeight/4) + (0.1 * initHeight));
+          text("Cherry: " + snake.fPU + " Mice: " + snake.mPU,initWidth/2,(initHeight/4) + (0.2 * initHeight));
+          text("Press 'r' to reset or 'm' to go to menu",initWidth/2,(initHeight/4) + (0.3 * initHeight));
           checkScore();
           
           

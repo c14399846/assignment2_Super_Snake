@@ -37,6 +37,8 @@ class Fruit extends GameObjects implements Powerup
       
       PUFruitX = (int) random(0,(initWidth/PUSize));
       PUFruitY = (int) random(0,(initWidth/PUSize));
+      
+      cherry.checkCollisions();
     }
   }
   
@@ -51,7 +53,7 @@ class Fruit extends GameObjects implements Powerup
   //checks for fruit spawning on snake body
   void checkCollisions()
   {
-    for(int i = 1;i<snakeX.size();i++)
+    for(int i = 0;i<snakeX.size();i++)
     {
       if(PUFruitX == snakeX.get(i) && PUFruitY == snakeX.get(i))
       {
