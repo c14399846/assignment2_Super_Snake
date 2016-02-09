@@ -46,12 +46,14 @@ class Snake extends GameObjects
           fill(0);
           textAlign(CENTER);
           textSize(30);
+          delay(200);sound_die.play();
           text("Game Over.",initWidth/2,initHeight/2);
           textSize(20);
           text("Score: " + score,initWidth/2,(initHeight/2) + (0.1 * initHeight));
           text("Cherry: " + snake.fPU + " Mice: " + snake.mPU,initWidth/2,(initHeight/2) + (0.2 * initHeight));
           text("Press 'r' to reset or 'm' to go to menu",initWidth/2,(initHeight/2) + (0.3 * initHeight));
           checkScore();
+          
           
           if(keyPressed)
           {
@@ -73,6 +75,8 @@ class Snake extends GameObjects
    
   void snakeReincarnate()
   {
+    sound_die.rewind();
+    sound_die.pause();
     //removes all snake segments
     snakeX.clear();
     snakeY.clear();

@@ -48,6 +48,7 @@ boolean play = false;
 boolean menu = true;
 boolean mode = false;
 boolean diffic = false;
+boolean muteVol = false;
 
 //mode system
 boolean easy = false;
@@ -124,6 +125,7 @@ controlP5.Button play_button;
 controlP5.Button menu_button;
 controlP5.Button mode_button;
 controlP5.Button reset_button;
+controlP5.Button mute_button;
 
 //Mode buttons
 controlP5.Button easy_button;
@@ -141,6 +143,7 @@ Fruit cherry;
 Minim minim;
 AudioPlayer sound_eat;
 AudioPlayer sound_eat2;
+AudioPlayer sound_die;
 
 void setup()
 {
@@ -150,19 +153,16 @@ void setup()
   
   //each blocksize of the snake or powerups will be be 60 or 30 pixels, THE PLACE WHERE IT'S INITIATED MAY BE MOVED LATER ON, INTO IT'S OWN CLASS *****
   //this is just the snakes first position
-  
+  minim = new Minim(this);
   snake = new Snake();
   mouse = new Mouse();
   cherry = new Fruit();
   
   snakeSetup();
-  
-  //snakeSounds();
-  minim = new Minim(this);
+  snakeSounds();
   
   
-  sound_eat = minim.loadFile("nom.mp3");
-  sound_eat2 = minim.loadFile("mih.mp3");
+  
   //snakeParts = createShape(RECT, 0, 0, 30, 30, snake.sP, snake.sP);
   
   hiscore = loadStrings("hiscore.txt");
@@ -176,6 +176,7 @@ void setup()
   play_button = controlP5.addButton("Play" ,1,0,0,buttonX,buttonY);
   mode_button = controlP5.addButton("Game Mode" ,1,buttonX,0,buttonX,buttonY);
   reset_button = controlP5.addButton("Reset" ,1,buttonX*2,0,buttonX,buttonY);
+  mute_button = controlP5.addButton("Mute" ,1,buttonX*3,0,buttonX,buttonY);
   
   easy_button = controlP5.addButton("Easy" ,1,initWidth/2,initHeight/2 - 75,100,75);
   norm_button = controlP5.addButton("Normal" ,1,initWidth/2,initHeight/2 - 150,100,75);
@@ -186,16 +187,13 @@ void setup()
                       .setPosition(buttonX,0)
                       .setSize(buttonX,buttonY)
                       .setBarHeight(buttonY);
-  
 }
 
 void snakeSounds()
 {
-  //sound_eat = new Minim(this,"nom.mp3");
-  /*sound_die = new SoundFile(this,"");
-  sound_newGame = new SoundFile(this,"");
-  sound_squeek = new SoundFile(this,"");
-*/
+  sound_eat = minim.loadFile("nom.mp3");
+  sound_eat2 = minim.loadFile("mih.mp3");
+  sound_die = minim.loadFile("snakeShake3.mp3");
 }
 
 void snakeSetup()
@@ -206,7 +204,7 @@ void snakeSetup()
   dir_vertic = dirSnake[0];
   
   snake.score = 0;
-  snake.mPU = 0;
+  snake.mPU = 0;// ***************NEED TO ADD INTO A TXT OR CSV FILE LATER ON
   snake.fPU = 0;  
   
   /* ********* the pu positions will be changed to PUX and PUY, and will be passed into each class,
@@ -236,7 +234,7 @@ void controlEvent(ControlEvent buttonPressed)
   
   if(buttonPressed.controller().getName().equals("Reset")){
     hiscore[0] = str(0);
-    saveStrings("daata/hiscore.txt",hiscore);
+    saveStrings("data/hiscore.txt",hiscore);
     
     //textFont(Arial);
     /*
@@ -244,6 +242,10 @@ void controlEvent(ControlEvent buttonPressed)
     textAlign(CENTER);
     textSize(20);
     text("Hiscore has been reset to 0",initWidth/2,initHeight/2);*/
+  }
+  
+  if(buttonPressed.controller().getName().equals("Mute")){
+    muteVol = !muteVol;
   }
   
   if(buttonPressed.controller().getName().equals("Game Mode")){
@@ -301,6 +303,7 @@ void menu()
   play_button.show();
   mode_button.show();
   reset_button.show();
+  mute_button.show();
 
   //the game requires you to choose a difficulty to play, resets to false at end of game
   mode = false;
@@ -316,6 +319,7 @@ void gameMode()
     mode_button.hide();
     play_button.hide();
     reset_button.hide();
+    mute_button.hide();
     
     dropDiff.show();
     menu_button.show();
@@ -330,6 +334,7 @@ void gamePlay()
   mode_button.hide();
   play_button.hide();
   reset_button.hide();
+  mute_button.hide();
   // will be moved later, into a switch statement or otherwise into menu system ***** 
   deather();
   
@@ -356,23 +361,41 @@ void draw()
   /***** removed just for testing purposes, will be added back in after game runs fine *****/
   if(menu == true)
   {
-    background(255);
+    //background(255);
     menu(); 
   }
   
   if(mode == true)
   {  
-    background(255);
+    //background(255);
     gameMode();
   }
   
   if(play == true)
   {
-    background(255);
+    //background(255);
     gamePlay();
   }
+  checkSound();
   
+}
+
+//checks for sound mute
+void checkSound()
+{
+  if(!muteVol)
+  {
+    sound_die.unmute();
+    sound_eat.unmute();
+    sound_eat2.unmute();
+  }
   
+  else if(muteVol)
+  {
+    sound_die.mute();
+    sound_eat.mute();
+    sound_eat2.mute();
+  }
 }
 
 void deather()
