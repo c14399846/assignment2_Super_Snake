@@ -201,7 +201,9 @@ class Snake extends GameObjects
      {
        fill(sB);
        //snakeParts.setFill(sB);
-       rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeBodyCurv);
+       
+       
+       rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize-(1*i),snakeSize-(1*i),snakeBodyCurv);
        //shape(snakeParts,snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize);
        
        strokeWeight(2);

@@ -62,6 +62,8 @@ boolean game0 = true;//where there are no walls
 boolean game1 = false;
 boolean game2 = false;
 
+boolean moved;
+
 
 
 
