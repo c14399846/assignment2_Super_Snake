@@ -47,6 +47,7 @@ How things are done:
 boolean play = false;
 boolean menu = true;
 boolean mode = false;
+boolean modeSel = false;
 boolean diffic = false;
 boolean muteVol = false;
 
@@ -65,7 +66,7 @@ boolean game2 = false;
 
 boolean moved;
 
-
+String difficSel = "";
 
 
 int initHeight = 600;/* ***** CHANGE TO 1200 FOR DEMO ***** */
@@ -74,7 +75,7 @@ int fps = 60;
 int snakeSize = 30; //snakes  width and height
 int snakeHeadCurv = 5;// curvature of snakes head
 int snakeBodyCurv = 10;// curvature of snakes body
-int difficulty = 3; /* ***** CHANGE TO 0 AFTER BUTTONS ARE RE-ENABLED, 3 is easiest,1 is hardest ***** */
+int difficulty = 0; /* *****  4 is easiest,1 is hardest ***** */
 
 //powerup up position and size
 //int PUX;//powerup x
@@ -115,7 +116,7 @@ String[] hiscore;
 
 
 //classes
-ControlP5 controlP5;
+ControlP5 cP5;
 
 
 DropdownList dropDiff;
@@ -170,20 +171,20 @@ void setup()
   
   /***** will be added back in later, after game runs fine on its own*****/
   
-  controlP5 = new ControlP5(this); //button class
+  cP5 = new ControlP5(this); //button class
   
-  menu_button = controlP5.addButton("Main Menu" ,1,0,0,buttonX,buttonY);
-  play_button = controlP5.addButton("Play" ,1,0,0,buttonX,buttonY);
-  mode_button = controlP5.addButton("Game Mode" ,1,buttonX,0,buttonX,buttonY);
-  reset_button = controlP5.addButton("Reset" ,1,buttonX*2,0,buttonX,buttonY);
-  mute_button = controlP5.addButton("Mute" ,1,buttonX*3,0,buttonX,buttonY);
+  menu_button = cP5.addButton("Main Menu" ,1,0,0,buttonX,buttonY);
+  play_button = cP5.addButton("Play" ,1,0,0,buttonX,buttonY);
+  mode_button = cP5.addButton("Game Mode" ,1,buttonX,0,buttonX,buttonY);
+  reset_button = cP5.addButton("Reset" ,1,buttonX*2,0,buttonX,buttonY);
+  mute_button = cP5.addButton("Mute" ,1,buttonX*3,0,buttonX,buttonY);
   
-  easy_button = controlP5.addButton("Easy" ,1,initWidth/2,initHeight/2 - 75,100,75);
-  norm_button = controlP5.addButton("Normal" ,1,initWidth/2,initHeight/2 - 150,100,75);
-  hard_button = controlP5.addButton("Hard" ,1,initWidth/2,initHeight/2 - 225,100,75);
-  xtrm_button = controlP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
+  easy_button = cP5.addButton("Easy" ,1,initWidth/2,initHeight/2 - 75,100,75);
+  norm_button = cP5.addButton("Normal" ,1,initWidth/2,initHeight/2 - 150,100,75);
+  hard_button = cP5.addButton("Hard" ,1,initWidth/2,initHeight/2 - 225,100,75);
+  xtrm_button = cP5.addButton("Extreme" ,1,initWidth/2,initHeight/2 - 300,100,75);
   
-  dropDiff = controlP5.addDropdownList("Difficulty")
+  dropDiff = cP5.addDropdownList("Difficulty")
                       .setPosition(buttonX,0)
                       .setSize(buttonX,buttonY)
                       .setBarHeight(buttonY);
@@ -250,24 +251,29 @@ void controlEvent(ControlEvent buttonPressed)
   
   if(buttonPressed.controller().getName().equals("Game Mode")){
     menu = false;
-    diffic = false;
     mode = true;
     diffic = true;
   }
   
-  if(buttonPressed.controller().getName().equals("Play")){
+  if(buttonPressed.controller().getName().equals("Play") && modeSel){
     play = true;
   }
   
   if(buttonPressed.controller().getName().equals("Easy")){
-    easy = !easy;
+    easy = true;
+    modeSel = true;
+    difficulty = 4;
+    difficSel = "Easy";
     norm = false;
     hard = false;
     xtrm = false;
   }  
   
   if(buttonPressed.controller().getName().equals("Normal")){
-    norm = !norm;
+    norm = true;
+    modeSel = true;
+    difficulty = 3;
+    difficSel = "Normal";
     easy = false;
     hard = false;
     xtrm = false;
@@ -275,14 +281,20 @@ void controlEvent(ControlEvent buttonPressed)
   }  
   
   if(buttonPressed.controller().getName().equals("Hard")){
-    hard = !hard;
+    hard = true;
+    modeSel = true;
+    difficulty = 2;
+    difficSel = "Hard";
     easy = false;
     norm = false;
     xtrm = false;
   }  
   
   if(buttonPressed.controller().getName().equals("Extreme")){
-    xtrm = !xtrm;
+    xtrm = true;
+    modeSel = true;
+    difficulty = 2;
+    difficSel = "Xtreme";
     easy = false;
     norm = false;
     hard = false;
@@ -311,6 +323,8 @@ void menu()
   norm = false;
   hard = false;
   xtrm = false;
+  
+  menuStats();
   
 }
 
@@ -378,6 +392,15 @@ void draw()
   }
   checkSound();
   
+}
+
+void menuStats()
+{
+  fill(0);
+  //textAlign(RIGHT);
+  textSize(10);
+  
+  text("Difficulty: "+difficSel,initWidth - buttonX*3,buttonY*2);
 }
 
 //checks for sound mute

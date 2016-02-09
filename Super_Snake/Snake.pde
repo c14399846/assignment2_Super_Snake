@@ -30,7 +30,7 @@ class Snake extends GameObjects
     
       if(snakeX.get(0) >= (initWidth/snakeSize) || snakeX.get(0) < 0  || snakeY.get(0) >= (initHeight/snakeSize) || snakeY.get(0) < 0)
       {
-        if(!easy && !norm)//if you're playing on a difficulty above easy and normal
+        if(!easy || !norm)//if you're playing on a difficulty above easy and normal
         {
           gameOver=true;
         }
@@ -68,6 +68,7 @@ class Snake extends GameObjects
               snakeReincarnate();
               play = false;
               menu = true;
+              modeSel = false;
             }
           }
       }
@@ -139,9 +140,12 @@ class Snake extends GameObjects
   
   void PUEaten()
   {
-    sound_eat2.rewind();
-    sound_eat2.play();//plays sound 'nom' or something to that effect
-    eaten = false;
+    if(!sound_eat2.isPlaying())//stops it from spamming eating sound
+    {
+      sound_eat2.rewind();
+      sound_eat2.play();//plays sound 'nom' or something to that effect
+      eaten = false;
+    }
   }
    
    void update()
