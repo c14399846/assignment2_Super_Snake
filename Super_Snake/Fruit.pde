@@ -1,8 +1,12 @@
 class Fruit extends GameObjects implements Powerup
 {
+  
+  color cherryCol;
+  color cherryLine;
   void update()
   {
-    
+    this.cherryCol = color(200,0,0);
+    this.cherryLine = color(0,175,0);
   }
   
   void render()

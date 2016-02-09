@@ -5,11 +5,15 @@ class Snake extends GameObjects
    int fPU;
    boolean eaten;//if powerup is eaten
    //int sP;
+   color sH;
+   color sB;
    
    
    Snake()
    {
      //this.sP = snakeHeadCurv;
+     this.sH = color(0,100,0);
+     this.sB = color(0,255,0);
    }
    
   void CheckDeath()
@@ -38,7 +42,7 @@ class Snake extends GameObjects
       
       if(gameOver)
       {
-          fill(255);
+          fill(0);
           textAlign(CENTER);
           textSize(30);
           text("Game Over.",initWidth/2,initHeight/2);
@@ -203,11 +207,11 @@ class Snake extends GameObjects
        //snakeParts.setFill(sB);
        
        
-       rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize-(1*i),snakeSize-(1*i),snakeBodyCurv);
+       rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeBodyCurv);
        //shape(snakeParts,snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize);
        
        strokeWeight(2);
-       stroke(0);
+       //stroke(cherryLine);
          
        /*if(key == 'w' || key == 's' || key == 'W' || key == 'S')
        {

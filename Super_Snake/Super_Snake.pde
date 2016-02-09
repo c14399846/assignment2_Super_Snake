@@ -92,28 +92,11 @@ int PUMouseY;
 int PUFruitX;
 int PUFruitY;
 
-
-float d;
-
-
-
-int score;
-
 //dont move, move 'forward', move 'back'
 int[] dirSnake = {0,1,-1};
 //starts snake moving right
 int dir_horiz;
 int dir_vertic;
-
-
-color sH;
-color sB;
-
-color mouseCol = color(100);
-color mouseLine = color(0);
-
-color cherryCol = color(200,0,0);
-color cherryLine = color(0,175,0);
 
 ArrayList<Integer> snakeX = new ArrayList<Integer>();
 ArrayList<Integer> snakeY = new ArrayList<Integer>();
@@ -203,11 +186,7 @@ void snakeSetup()
   
   snake.score = 0;
   snake.mPU = 0;
-  snake.fPU = 0;
-  
-  sH = color(0,100,0);
-  sB = color(0,255,0);
-  
+  snake.fPU = 0;  
   
   /* ********* the pu positions will be changed to PUX and PUY, and will be passed into each class,
                there pux and puy will be given their own unique values - this.pux this puy, etc,
@@ -332,24 +311,24 @@ void draw()
 {
   frameRate(fps);
   //need to increase speed in another way
-  background(0);
+  background(255);
   
   /***** removed just for testing purposes, will be added back in after game runs fine *****/
   if(menu == true)
   {
-    background(0);
+    background(255);
     menu(); 
   }
   
   if(mode == true)
   {  
-    background(0);
+    background(255);
     gameMode();
   }
   
   if(play == true)
   {
-    background(0);
+    background(255);
     gamePlay();
   }
   

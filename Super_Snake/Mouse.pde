@@ -1,5 +1,16 @@
 class Mouse extends GameObjects implements Powerup
 {
+  color mouseCol;
+  color mouseLine;
+  float d;
+  int passed;
+  
+  Mouse()
+  {
+    this.mouseCol = color(100);
+    this.mouseLine = color(0);
+    this.passed = 0;
+  }
   
   void update()
   {
@@ -48,8 +59,19 @@ class Mouse extends GameObjects implements Powerup
   
   void frightened()
   {
-    //sound_squeek.play();
-    //println("squeek!");
+    /*
+    need to do time based, or else it will keep repeating
+    if(passed==3)
+    {
+      println("squeek!");
+      //sound_squeek.play();
+      passed = 0;
+    }
+    
+    
+    passed++;
+    
+    */
     
     //code for making the mouse shake
   }
