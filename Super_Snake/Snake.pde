@@ -146,7 +146,6 @@ class Snake extends GameObjects
     {
       sound_eat2.rewind();
       sound_eat2.play();//plays sound 'nom' or something to that effect
-      eaten = false;
     }
   }//end PUEaten
    
@@ -162,9 +161,12 @@ class Snake extends GameObjects
        if(eaten)
        {
          PUEaten();
+         eaten = false;//having eaten outside of fucntion stops from 'hanging'
+                       //this means the snake wont keep growing until the sound is done playing
+                       //instead the sound can play, and the bool will be turned into false straight after
        }
        
-       else
+       else if(!eaten)
        {
          //removes the last snake segment
          snakeX.remove(snakeX.size() - 1);
