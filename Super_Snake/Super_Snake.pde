@@ -1,3 +1,7 @@
+/*
+C14399846
+*/
+
 //libraries
 import java.util.*;//used for setSize function
 import controlP5.*;//used for buttons
@@ -124,6 +128,7 @@ void setup()
   imgInfo = loadImage("data/gifs/info.PNG");
   
   img.resize(initWidth-imgBorder,initHeight-imgBorder);// resizes depending on gamesize
+  imgInfo.resize(initWidth-imgBorder,initHeight-imgBorder);
   
   cP5 = new ControlP5(this); //button class
   cP5.setColorBackground(color(0,150,150));
@@ -171,12 +176,12 @@ void snakeSetup()
 
   
   //mouse position
-  PUMouseX = (int) random(0,(initWidth/snakeSize));
-  PUMouseY = (int) random(0,(initHeight/snakeSize));
+  PUMouseX = (int) random(0,(initWidth/PUSize));
+  PUMouseY = (int) random(0,(initHeight/PUSize));
 
   //fruit position
-  PUFruitX = (int) random(0,(initWidth/snakeSize));
-  PUFruitY = (int) random(0,(initHeight/snakeSize));
+  PUFruitX = (int) random(0,(initWidth/PUSize));
+  PUFruitY = (int) random(0,(initHeight/PUSize));
   
   higher = false;//high score check
 }
@@ -264,7 +269,7 @@ void controlEvent(ControlEvent buttonPressed)
 //info about the game, how to play, how you die, etc
 void Info()
 {
-  image(imgInfo,10,200);
+  image(imgInfo,10,imgBorder);
 }
 
 
@@ -358,7 +363,7 @@ void draw()
     menu();
     if(Info == false)
     {
-      image(img,200,200);
+      image(img,imgBorder,imgBorder);
     }
     
     else if(Info == true)
