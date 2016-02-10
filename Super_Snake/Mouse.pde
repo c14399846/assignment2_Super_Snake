@@ -61,7 +61,7 @@ class Mouse extends GameObjects implements Powerup
   void frightened()
   {
     //will play sound if in range 3 times in a row, with a second interval per check
-    if(passed==3)
+    if(passed==3 && !muteVol)
     {
       sound_squeek.rewind();
       println("squeek!");
