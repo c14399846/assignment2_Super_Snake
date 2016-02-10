@@ -22,8 +22,9 @@ boolean hard = false;
 boolean xtrm = false;
 
 //game status
-//this is for the wall system, game over if you die, other
 boolean gameOver = false;
+
+//infor page
 boolean Info = false;
 
 boolean higher;//checks if new score is achieved
@@ -124,11 +125,6 @@ void setup()
   PUCurv = snakeBodyCurv;// same as snake curv
   PUSize = snakeSize;
   
-  
-  
-  
-  //surface.setResizeable(true);
-  
   minim = new Minim(this);
   snake = new Snake();
   mouse = new Mouse();
@@ -151,24 +147,28 @@ void setup()
   cP5.setColorForeground(color(0,120,120));
   cP5.setColorActive(color(0,130,130));
   
-  /* ****************ADD IN LATER */
-  //for(int i =0;i<bNum;i++)
-  //{
-    menu_button = cP5.addButton("Main Menu" ,1,0,0,initWidth/bNum,buttonY);
-    play_button = cP5.addButton("Play" ,1,0,0,initWidth/bNum,buttonY);
-    mode_button = cP5.addButton("Game Mode" ,1,initWidth/bNum,0,initWidth/bNum,buttonY);
-    reset_button = cP5.addButton("Reset" ,1,initWidth/bNum * 2,0,initWidth/bNum,buttonY);
-    mute_button = cP5.addButton("Mute" ,1,initWidth/bNum*3,0,initWidth/bNum,buttonY);
-    info_button = cP5.addButton("Info" ,1,initWidth/bNum*4,0,initWidth/bNum,buttonY);
-    fScreen_button = cP5.addButton("Full screen" ,1,initWidth/bNum*5,0,initWidth/bNum,buttonY);
-    
-    easy_button = cP5.addButton("Easy" ,1,initWidth/bNum,buttonY,initWidth/bNum,buttonY);
-    norm_button = cP5.addButton("Normal" ,1,initWidth/bNum,buttonY*2,initWidth/bNum,buttonY);
-    hard_button = cP5.addButton("Hard" ,1,initWidth/bNum,buttonY*3,initWidth/bNum,buttonY);
-    xtrm_button = cP5.addButton("Extreme" ,1,initWidth/bNum,buttonY*4,initWidth/bNum,buttonY);
- // }
+  menu_button = cP5.addButton("Main Menu" ,1,0,0,initWidth/bNum,buttonY);
+  play_button = cP5.addButton("Play" ,1,0,0,initWidth/bNum,buttonY);
+  mode_button = cP5.addButton("Game Mode" ,1,initWidth/bNum,0,initWidth/bNum,buttonY);
+  reset_button = cP5.addButton("Reset" ,1,initWidth/bNum * 2,0,initWidth/bNum,buttonY);
+  mute_button = cP5.addButton("Mute" ,1,initWidth/bNum*3,0,initWidth/bNum,buttonY);
+  info_button = cP5.addButton("Info" ,1,initWidth/bNum*4,0,initWidth/bNum,buttonY);
+  fScreen_button = cP5.addButton("Full screen" ,1,initWidth/bNum*5,0,initWidth/bNum,buttonY);
   
+  easy_button = cP5.addButton("Easy" ,1,initWidth/bNum,buttonY,initWidth/bNum,buttonY);
+  norm_button = cP5.addButton("Normal" ,1,initWidth/bNum,buttonY*2,initWidth/bNum,buttonY);
+  hard_button = cP5.addButton("Hard" ,1,initWidth/bNum,buttonY*3,initWidth/bNum,buttonY);
+  xtrm_button = cP5.addButton("Extreme" ,1,initWidth/bNum,buttonY*4,initWidth/bNum,buttonY);  
 }
+
+//trying out fullscreen game 
+/*void settings()
+{
+  fullScreen();
+  initWidth = width;
+  initHeight = height;
+  snakeSize=30;
+}*/
 
 void snakeSounds()
 {
@@ -394,6 +394,11 @@ void draw()
     else if(Info == true)
     {
       Info();
+    }
+    
+    if(fScreen)
+    {
+      //settings();
     }
   }
   
