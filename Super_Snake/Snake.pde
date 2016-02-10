@@ -1,22 +1,18 @@
 class Snake extends GameObjects
 {
    int score;
-   int mPU;
-   int fPU;
+   int mPU;//mice eaten
+   int fPU;//fruit eaten
    int deathScore;   
    boolean eaten;//if powerup is eaten
-   //int sP;
-   color sH;
-   color sB;
-   char wasd = key;
-   
+   color sH;//snake head colour
+   color sB;//snake body colour
    
    Snake()
    {
      //this.sP = snakeHeadCurv;
      this.sH = color(0,100,0);
      this.sB = color(0,255,0);
-     this.wasd = 'w';
    }
    
   void CheckDeath()
@@ -32,17 +28,7 @@ class Snake extends GameObjects
     
       if(snakeX.get(0) >= (initWidth/snakeSize) || snakeX.get(0) < 0  || snakeY.get(0) >= (initHeight/snakeSize) || snakeY.get(0) < 0)
       {
-        /*if(!easy || !norm)//if you're playing on a difficulty above easy and normal
-        {
-          gameOver=true;
-        }*/
         gameOver = true;
-        
-        /*else
-        {
-          //code for placing snake on opposite side of grid, maybe ********
-          //head will be placed on opposite, but dont know if body will too? *******
-        }*/
       }
       
       if(gameOver)
@@ -79,8 +65,7 @@ class Snake extends GameObjects
               snakeReincarnate();
               play = false;
               menu = true;
-              //modeSel = false;
-              //difficSel = "";
+              Info = false;
             }
           }
       }
@@ -151,49 +136,17 @@ class Snake extends GameObjects
    
    void render()
    {
-     fill(sH);
-     //snakeParts.setFill(sH);
-     
-     //sP = snakeHeadCurv;
      //snake head
+     fill(sH);
+     stroke(cherry.cherryLine);
      rect(snakeX.get(0)*snakeSize,snakeY.get(0)*snakeSize,snakeSize+(snakeSize*0.07),snakeSize+(snakeSize*0.07),snakeHeadCurv);
-       
-     //snake eyes;
-     //fill(0);// rect((snakeX.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (4),10,6 ); rect((snakeX.get(i)*snakeSize) + (snakeSize - 12), snakeY.get(i)*snakeSize + (16),10,6 ); fill(sH);
-       
-     //wasdEyes(0);
-     //shape(snakeParts,snakeX.get(0)*snakeSize,snakeY.get(0)*snakeSize);
-    
-     //sP = snakeBodyCurv;
+
      //snake body
      for(int i = 1;i < snakeX.size(); i++)
      {
        fill(sB);
-       //snakeParts.setFill(sB);
-       
        rect(snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize,snakeSize,snakeSize,snakeBodyCurv);
-       
-         
-       //shape(snakeParts,snakeX.get(i)*snakeSize,snakeY.get(i)*snakeSize);
-       
        strokeWeight(2);
-       //stroke(cherryLine);
-         
-       /*if(key == 'w' || key == 's' || key == 'W' || key == 'S')
-       {
-         line(snakeX.get(i)*snakeSize+(snakeSize*0.5),snakeY.get(i)*snakeSize+(1),snakeX.get(i)*snakeSize+(snakeSize*0.5),snakeY.get(i)*snakeSize+(snakeSize-1));
-       }
-       else if(key == 'a' || key == 'd' || key == 'A' || key == 'D')
-       {
-         line(snakeX.get(i)*snakeSize+1,snakeY.get(i)*snakeSize+(snakeSize*0.5),snakeX.get(i)*snakeSize+(snakeSize-1),snakeY.get(i)*snakeSize+(snakeSize*0.5));
-       }*/
      }
-   }//end render
-   
-   
-  /* ***** REMOVE SOME FILLS ***** */
-  
-   
-   
-   
+   }//end render   
 }

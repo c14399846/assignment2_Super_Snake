@@ -2,13 +2,15 @@ class Mouse extends GameObjects implements Powerup
 {
   color mouseCol;
   color mouseLine;
+  color mouseNose;
   float d;
-  int passed;
+  int passed;//if snake is nearby mouse
   
   Mouse()
   {
     this.mouseCol = color(100);
     this.mouseLine = color(0);
+    this.mouseNose = color(255,192,203);
     this.passed = 0;
   }
   
@@ -27,6 +29,12 @@ class Mouse extends GameObjects implements Powerup
     fill(mouseCol);
     stroke(mouseLine);
     rect(PUMouseX*PUSize,PUMouseY*PUSize,PUSize,PUSize,PUCurv);
+    stroke(255);
+    rect((PUMouseX*PUSize) - (PUSize/4) ,(PUMouseY*PUSize) -(PUSize/4),PUSize/3,PUSize/3,PUCurv);
+    rect((PUMouseX*PUSize)+(PUSize*0.9) ,(PUMouseY*PUSize) -(PUSize/4),PUSize/3,PUSize/3,PUCurv);
+    fill(mouseNose);
+    stroke(mouseNose);
+    rect((PUMouseX*PUSize) + (PUSize/3) , (PUMouseY*PUSize) + (PUSize/3) , PUSize/3, PUSize/3,PUCurv);
   }
   
   void CheckDeath()
@@ -34,10 +42,6 @@ class Mouse extends GameObjects implements Powerup
     if(snakeX.get(0) == PUMouseX && snakeY.get(0) == PUMouseY)
     {
       mouse.applyTo(snake);
-      //snakeX.add(0,PUMouseX + dir_horiz);
-      //snakeY.add(0,PUMouseY + dir_vertic);
-      
-      timer();
       
       PUMouseX = (int) random(0,(initWidth/PUSize));
       PUMouseY = (int) random(0,(initWidth/PUSize));
@@ -52,11 +56,7 @@ class Mouse extends GameObjects implements Powerup
     snake.mPU++;
     snake.eaten = true;
   }
-  
-  void timer()
-  {
-    
-  }  
+
   
   void frightened()
   {

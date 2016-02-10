@@ -1,48 +1,7 @@
+//libraries
 import java.util.*;//used for setSize function
 import controlP5.*;//used for buttons
 import ddf.minim.*;//used for sound
-//import gifAnimation.*;//add later
-
-/******
-Game : 
-  Snake 
-
-Goal :
-  The goal is to make a classic game that is class-based.
-  
-  It must use programming practices such as inheritance, polymorhpism, abstract classes,
-  sound files, animations, while being procedural in nature ( e.g spawning of enemies or buffs).
-  
-Features(That I hope to implement):
-  Interfaces - menu system
-  
-  High-score storage
-    reaching a certain high score will unlock other difficulties
-    
-  Various difficulty settings
-    Easy,Normal,Hard
-      Normal has increased speed, and addition of walls(?)
-      Hard has increased speed, removal of tracking lines, and addition of walls
-      
-  Multiple powerups
-    size-increase, score-increasing, invulnerability(?)
-    Reaching a certain number of powerups or score will make walls appear
-
-How things are done:
-  snake, powerups (fruit/mouse) are given their own class, with lives, speed, size(?), etc,
-  which will extend a position/Pvector class - gObjects
-  
-  guidelines are drawn in a function x frames (120) per sec
-  
-  All modes (?) will let you go through oppoiste wall, Hard mode, or an Extreme mode could exclude this bit of code
-  
-  walls are given their own function; only activate when in Normal/Hard mode, and when score = 1000 or 15 powerups are collected
-    
-  Fruits can also be a moving object / timed object - based on framerate counting
-  
-
-******/
-
 
 //menu system
 boolean play = false;
@@ -60,9 +19,7 @@ boolean xtrm = false;
 //game status
 //this is for the wall system, game over if you die, other
 boolean gameOver = false;
-/*boolean game0 = true;//where there are no walls
-boolean game1 = false;
-boolean game2 = false;*/
+boolean Info = false;
 
 boolean higher;//checks if new score is achieved
 
@@ -71,20 +28,25 @@ boolean keyedA=false;
 boolean keyedS=false;
 boolean keyedD=false;
 
-String difficSel = "";
+String difficSel = "";//difficulty selected by user
 
 int initHeight = 1200;
 int initWidth = 1200;
+
 int fps = 60;
-int snakeSize = 30; //snakes  width and height
+int snakeSize = 30; // snakes width and height
 int snakeHeadCurv = 5;// curvature of snakes head
 int snakeBodyCurv = 10;// curvature of snakes body
-int difficulty = 0; /* *****  4 is easiest,1 is hardest ***** */
-int bNum = 5;
 
-int PUCurv = snakeBodyCurv;
-int PUSize = snakeSize;
+int difficulty = 0; /* 4 is easiest,1 is hardest, used in framecount */
 
+int imgBorder = 200;// border for images
+int bNum = 5;// number of buttons
+
+int PUCurv = snakeBodyCurv;// same as snake curv
+int PUSize = snakeSize;// same as snake curv
+
+//menu button sizes
 int buttonX = 75;
 int buttonY = 50;
 
@@ -96,25 +58,20 @@ int PUMouseY;
 int PUFruitX;
 int PUFruitY;
 
-//dont move, move 'forward', move 'back'
+//'dont move', move 'forward', move 'back'
 int[] dirSnake = {0,1,-1};
-//starts snake moving right
 int dir_horiz;
 int dir_vertic;
 
-ArrayList<Integer> snakeX = new ArrayList<Integer>();
-ArrayList<Integer> snakeY = new ArrayList<Integer>();
-//ArrayList<Integer> snakeBack = new ArrayList<Integer>();
-//ArrayList<loadIn> scoreKeeper = new ArrayList<loadIn>();
+ArrayList<Integer> snakeX = new ArrayList<Integer>();// x position
+ArrayList<Integer> snakeY = new ArrayList<Integer>();// y position
 
-String[] hiscore;
+String[] hiscore;//local score storage
 
 
 //classes
 ControlP5 cP5;
 
-
-DropdownList dropDiff;
 
 //Main menu buttons
 controlP5.Button play_button;
@@ -124,54 +81,54 @@ controlP5.Button reset_button;
 controlP5.Button mute_button;
 controlP5.Button info_button;
 
-//Mode buttons
+//Gamemode / Difficulty buttons
 controlP5.Button easy_button;
 controlP5.Button norm_button;
 controlP5.Button hard_button;
 controlP5.Button xtrm_button;
 
-PShape snakeParts;
+//game objects
 Snake snake;
 Mouse mouse;
 Fruit cherry;
 
+//audiofiles
 Minim minim;
 AudioPlayer sound_eat;
 AudioPlayer sound_eat2;
 AudioPlayer sound_die;
 AudioPlayer sound_squeek;
 
-
-
+//info and intro images
 PImage img;
+PImage imgInfo;
 
 
 void setup()
 {
   surface.setSize(initWidth,initHeight);
-  smooth(8);
-  //fullScreen();  
+  smooth(8); 
   
-  //each blocksize of the snake or powerups will be be 60 or 30 pixels, THE PLACE WHERE IT'S INITIATED MAY BE MOVED LATER ON, INTO IT'S OWN CLASS *****
-  //this is just the snakes first position
   minim = new Minim(this);
   snake = new Snake();
   mouse = new Mouse();
   cherry = new Fruit();
   
-  snakeSetup();
+  snakeSetup();// sets up snake direction, spawns of powerups, sets scores to 0
   snakeSounds();
-  
-  
-  //snakeParts = createShape(RECT, 0, 0, 30, 30, snake.sP, snake.sP);
   
   //high scores txt
   hiscore = loadStrings("hiscore.txt");
   
-  img = loadImage("snakepixel_800.gif");
+  img = loadImage("data/gifs/menu_1000.gif");
+  imgInfo = loadImage("data/gifs/info.PNG");
+  
+  img.resize(initWidth-imgBorder,initHeight-imgBorder);// resizes depending on gamesize
   
   cP5 = new ControlP5(this); //button class
-  
+  cP5.setColorBackground(color(0,150,150));
+  cP5.setColorForeground(color(0,120,120));
+  cP5.setColorActive(color(0,130,130));
   
   menu_button = cP5.addButton("Main Menu" ,1,0,0,initWidth/bNum,buttonY);
   play_button = cP5.addButton("Play" ,1,0,0,initWidth/bNum,buttonY);
@@ -179,10 +136,6 @@ void setup()
   reset_button = cP5.addButton("Reset" ,1,initWidth/bNum * 2,0,initWidth/bNum,buttonY);
   mute_button = cP5.addButton("Mute" ,1,initWidth/bNum*3,0,initWidth/bNum,buttonY);
   info_button = cP5.addButton("Info" ,1,initWidth/bNum*4,0,initWidth/bNum,buttonY);
-  
-  cP5.setColorBackground(color(0,150,150));
-  cP5.setColorForeground(color(0,120,120));
-  cP5.setColorActive(color(0,130,130));
   
   easy_button = cP5.addButton("Easy" ,1,initWidth/bNum,buttonY,initWidth/bNum,buttonY);
   norm_button = cP5.addButton("Normal" ,1,initWidth/bNum,buttonY*2,initWidth/bNum,buttonY);
@@ -202,7 +155,7 @@ void snakeSounds()
 void snakeSetup()
 {
   //adds first 5 snake body parts to the arraylist, gives initial direction(right)
-  for(int i =0;i<5;i++){snakeX.add(i);snakeY.add(i);}// ***** might need changes,looks cool though
+  for(int i =0;i<5;i++){snakeX.add(i);snakeY.add(i);}
   dir_horiz = dirSnake[1];
   dir_vertic = dirSnake[0];
   
@@ -211,16 +164,11 @@ void snakeSetup()
   keyedS=false;
   keyedW=false;
   
+  //player score, amount of mice and cherries eaten
   snake.score = 0;
   snake.mPU = 0;
   snake.fPU = 0;  
-  
-  /* ********* the pu positions will be changed to PUX and PUY, and will be passed into each class,
-               there pux and puy will be given their own unique values - this.pux this puy, etc,
-               a collisioncheck() funciton will be made to stop same spawns,
-               either in draw or elsewhere
-     ********* 
-  */
+
   
   //mouse position
   PUMouseX = (int) random(0,(initWidth/snakeSize));
@@ -230,7 +178,7 @@ void snakeSetup()
   PUFruitX = (int) random(0,(initWidth/snakeSize));
   PUFruitY = (int) random(0,(initHeight/snakeSize));
   
-  higher = false;
+  higher = false;//high score check
 }
 
 
@@ -240,18 +188,12 @@ void controlEvent(ControlEvent buttonPressed)
 {
   if(buttonPressed.controller().getName().equals("Main Menu")){
     menu = true;
+    Info = false;
   }
   
   if(buttonPressed.controller().getName().equals("Reset")){
     hiscore[0] = str(0);
     saveStrings("data/hiscore.txt",hiscore);
-    
-    //textFont(Arial);
-    /*
-    stroke(0);
-    textAlign(CENTER);
-    textSize(20);
-    text("Hiscore has been reset to 0",initWidth/2,initHeight/2);*/
   }
   
   if(buttonPressed.controller().getName().equals("Mute")){
@@ -261,21 +203,18 @@ void controlEvent(ControlEvent buttonPressed)
   if(buttonPressed.controller().getName().equals("Game Mode")){
     menu = false;
     mode = true;
+    Info = false;
   }
   
   if(buttonPressed.controller().getName().equals("Play") && modeSel){
     play = true;
-  }
-  
-  /*if(buttonPressed.controller().getName().equals("Play") && !modeSel){
-    textAlign(CENTER);
-    textSize(20);
-    text("Choose a difficulty to play snake", initWidth/2,initHeight/2);
+    Info = false;
+    menu = false;
   }
   
   if(buttonPressed.controller().getName().equals("Info")){
-    
-  }*/
+    Info = !Info;  
+  }
   
   if(buttonPressed.controller().getName().equals("Easy")){
     easy = true;
@@ -285,6 +224,7 @@ void controlEvent(ControlEvent buttonPressed)
     norm = false;
     hard = false;
     xtrm = false;
+    menu = true;
   }  
   
   if(buttonPressed.controller().getName().equals("Normal")){
@@ -295,7 +235,7 @@ void controlEvent(ControlEvent buttonPressed)
     easy = false;
     hard = false;
     xtrm = false;
-    
+    menu = true;
   }  
   
   if(buttonPressed.controller().getName().equals("Hard")){
@@ -306,6 +246,7 @@ void controlEvent(ControlEvent buttonPressed)
     easy = false;
     norm = false;
     xtrm = false;
+    menu = true;
   }  
   
   if(buttonPressed.controller().getName().equals("Extreme")){
@@ -316,14 +257,21 @@ void controlEvent(ControlEvent buttonPressed)
     easy = false;
     norm = false;
     hard = false;
+    menu = true;
   }  
 }
+
+//info about the game, how to play, how you die, etc
+void Info()
+{
+  image(imgInfo,10,200);
+}
+
 
 //at start of program you are shown the menu system, game difficulty and menu return are hidden until needed
 void menu()
 {
   menu_button.hide();
-  
   easy_button.hide();
   norm_button.hide();
   hard_button.hide();
@@ -347,14 +295,9 @@ void menu()
   
 }
 
+//shows difficulty buttons
 void gameMode()
-{
-    /*mode_button.hide();
-    play_button.hide();
-    reset_button.hide();
-    mute_button.hide();
-    info_button.hide();*/
-    
+{    
     menu_button.show();
     easy_button.show();
     norm_button.show();
@@ -365,9 +308,11 @@ void gameMode()
 void gamePlay()
 {
   mode=false;
-  hideAll();
-  // will be moved later, into a switch statement or otherwise into menu system ***** 
-  deather();
+  hideAll();//hides menu ui
+  
+  checkSound();//checks for sound mute
+  
+  deather();//checks for deth of object
   
   if(!gameOver && play)
   {    
@@ -411,32 +356,39 @@ void draw()
   {
     //background(255);
     menu();
-    //image(img,200,200);
+    if(Info == false)
+    {
+      image(img,200,200);
+    }
+    
+    else if(Info == true)
+    {
+      Info();
+    }
   }
+  
   
   if(mode == true)
   {  
-    //background(255);
     gameMode();
-    //image(img,200,200);
+    image(img,imgBorder,imgBorder);
   }
   
+  //if user selects play, run game
   if(play == true)
   {
-    //background(255);
     gamePlay();
   }
   
-  checkSound();
-  
+ 
 }
 
+//shows slected difficulty and player high score
 void menuStats()
 {
   if(!play)
   {
     fill(255);
-    //textAlign(RIGHT);
     textSize(16);
     
     text("Difficulty: " +difficSel,initWidth - buttonX*3,buttonY*2);
@@ -444,7 +396,8 @@ void menuStats()
   }
 }
 
-//checks for sound mute
+
+//mutes and unmutes sounds if button is pressed in menu
 void checkSound()
 {
   if(!muteVol)
@@ -462,6 +415,9 @@ void checkSound()
   }
 }
 
+//checks if snake is touhing edge or itself,
+//will show gameover screen and let user go back to menu
+//also checks if mouse or cherry have been eaten, then respawns them
 void deather()
 {
   snake.CheckDeath();
@@ -469,6 +425,7 @@ void deather()
   cherry.CheckDeath();
 }
 
+//snake movement
 void keyPressed()
 {
    if ((key == 'w' || key == 'W') && (keyedS != true))
