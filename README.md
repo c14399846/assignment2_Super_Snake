@@ -14,6 +14,12 @@ Death (snake):
 
 Death (mouse and cherry):
 	getting eaten by snake, will respawn to new area.
+
+Use reset button to set high score to 0.
+
+Use mute button to turn sounds on/off (it's a toggle).
+
+Info screen contains this same information.
 	
 Images used are made by me, you can repurpose them if needed.
 
