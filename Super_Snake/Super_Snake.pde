@@ -48,7 +48,6 @@ boolean play = false;
 boolean menu = true;
 boolean mode = false;
 boolean modeSel = false;
-boolean diffic = false;
 boolean muteVol = false;
 
 //mode system
@@ -73,25 +72,20 @@ boolean keyedD=false;
 
 String difficSel = "";
 
-int initHeight = 600;/* ***** CHANGE TO 1200 FOR DEMO ***** */
-int initWidth = 600;
+int initHeight = 1200;
+int initWidth = 1200;
 int fps = 60;
 int snakeSize = 30; //snakes  width and height
 int snakeHeadCurv = 5;// curvature of snakes head
 int snakeBodyCurv = 10;// curvature of snakes body
 int difficulty = 0; /* *****  4 is easiest,1 is hardest ***** */
+int bNum = 5;
 
-//powerup up position and size
-//int PUX;//powerup x
-//int PUY;//powerup y
 int PUCurv = snakeBodyCurv;
 int PUSize = snakeSize;
 
 int buttonX = 75;
 int buttonY = 50;
-
-
-/* ***** WILL BE CHANGED LATER ***** */
 
 //mouse position
 int PUMouseX;
@@ -127,6 +121,7 @@ controlP5.Button menu_button;
 controlP5.Button mode_button;
 controlP5.Button reset_button;
 controlP5.Button mute_button;
+controlP5.Button info_button;
 
 //Mode buttons
 controlP5.Button easy_button;
@@ -172,27 +167,22 @@ void setup()
   cP5 = new ControlP5(this); //button class
   
   
-  menu_button = cP5.addButton("Main Menu" ,1,0,0,buttonX,buttonY);
-  play_button = cP5.addButton("Play" ,1,0,0,buttonX,buttonY);
-  mode_button = cP5.addButton("Game Mode" ,1,buttonX,0,buttonX,buttonY);
-  reset_button = cP5.addButton("Reset" ,1,buttonX*2,0,buttonX,buttonY);
-  mute_button = cP5.addButton("Mute" ,1,buttonX*3,0,buttonX,buttonY);
+  menu_button = cP5.addButton("Main Menu" ,1,0,0,initWidth/bNum,buttonY);
+  play_button = cP5.addButton("Play" ,1,0,0,initWidth/bNum,buttonY);
+  mode_button = cP5.addButton("Game Mode" ,1,initWidth/bNum,0,initWidth/bNum,buttonY);
+  reset_button = cP5.addButton("Reset" ,1,initWidth/bNum * 2,0,initWidth/bNum,buttonY);
+  mute_button = cP5.addButton("Mute" ,1,initWidth/bNum*3,0,initWidth/bNum,buttonY);
+  info_button = cP5.addButton("Info" ,1,initWidth/bNum*4,0,initWidth/bNum,buttonY);
   
   cP5.setColorBackground(color(0,150,150));
   cP5.setColorForeground(color(0,120,120));
   cP5.setColorActive(color(0,130,130));
   
-  easy_button = cP5.addButton("Easy" ,1,0,buttonY,buttonX,buttonY);
-  norm_button = cP5.addButton("Normal" ,1,0,buttonY*2,buttonX,buttonY);
-  hard_button = cP5.addButton("Hard" ,1,0,buttonY*3,buttonX,buttonY);
-  xtrm_button = cP5.addButton("Extreme" ,1,0,buttonY*4,buttonX,buttonY);
+  easy_button = cP5.addButton("Easy" ,1,initWidth/bNum,buttonY,initWidth/bNum,buttonY);
+  norm_button = cP5.addButton("Normal" ,1,initWidth/bNum,buttonY*2,initWidth/bNum,buttonY);
+  hard_button = cP5.addButton("Hard" ,1,initWidth/bNum,buttonY*3,initWidth/bNum,buttonY);
+  xtrm_button = cP5.addButton("Extreme" ,1,initWidth/bNum,buttonY*4,initWidth/bNum,buttonY);
   
-  /*dropDiff = cP5.addDropdownList("Difficulty")
-                      .setPosition(buttonX,0)
-                      .setSize(buttonX,buttonY)
-                      .setBarHeight(buttonY)
-                      .setItemHeight(buttonY)
-                      .addItem("Easy",1).addItem("Normal",2).addItem("Hard",3).addItem("Xtreme",4);*/
 }
 
 void snakeSounds()
@@ -265,12 +255,21 @@ void controlEvent(ControlEvent buttonPressed)
   if(buttonPressed.controller().getName().equals("Game Mode")){
     menu = false;
     mode = true;
-    diffic = true;
   }
   
   if(buttonPressed.controller().getName().equals("Play") && modeSel){
     play = true;
   }
+  
+  /*if(buttonPressed.controller().getName().equals("Play") && !modeSel){
+    textAlign(CENTER);
+    textSize(20);
+    text("Choose a difficulty to play snake", initWidth/2,initHeight/2);
+  }
+  
+  if(buttonPressed.controller().getName().equals("Info")){
+    
+  }*/
   
   if(buttonPressed.controller().getName().equals("Easy")){
     easy = true;
@@ -318,7 +317,6 @@ void controlEvent(ControlEvent buttonPressed)
 void menu()
 {
   menu_button.hide();
-  //dropDiff.hide();
   
   easy_button.hide();
   norm_button.hide();
@@ -329,6 +327,7 @@ void menu()
   mode_button.show();
   reset_button.show();
   mute_button.show();
+  info_button.show();
 
   //the game requires you to choose a difficulty to play, resets to false at end of game
   mode = false;
@@ -343,12 +342,12 @@ void menu()
 
 void gameMode()
 {
-    mode_button.hide();
+    /*mode_button.hide();
     play_button.hide();
     reset_button.hide();
     mute_button.hide();
+    info_button.hide();*/
     
-    //dropDiff.show();
     menu_button.show();
     easy_button.show();
     norm_button.show();
@@ -358,10 +357,8 @@ void gameMode()
 
 void gamePlay()
 {
-  mode_button.hide();
-  play_button.hide();
-  reset_button.hide();
-  mute_button.hide();
+  mode=false;
+  hideAll();
   // will be moved later, into a switch statement or otherwise into menu system ***** 
   deather();
   
@@ -378,6 +375,21 @@ void gamePlay()
     
        
   }
+}
+
+void hideAll()
+{
+  menu_button.hide();
+  mode_button.hide();
+  play_button.hide();
+  reset_button.hide();
+  mute_button.hide();
+  info_button.hide();
+  
+  easy_button.hide();
+  norm_button.hide();
+  hard_button.hide();
+  xtrm_button.hide();
 }
 
 
@@ -405,6 +417,7 @@ void draw()
     //background(255);
     gamePlay();
   }
+  
   checkSound();
   
 }
