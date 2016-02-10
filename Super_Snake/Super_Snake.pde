@@ -48,8 +48,8 @@ int difficulty = 0; /* 4 is easiest,1 is hardest, used in framecount */
 int imgBorder = 200;// border for images
 int bNum = 6;// number of buttons
 
-int PUCurv = snakeBodyCurv;// same as snake curv
-int PUSize = snakeSize;// same as snake curv
+int PUCurv ;// same as snake curv
+int PUSize ;// same as snake curv
 
 //menu button sizes
 int buttonX = 75;
@@ -112,8 +112,21 @@ PImage imgInfo;
 
 void setup()
 {
-  surface.setSize(initWidth,initHeight);
-  smooth(8); 
+  //surface.setSize(initWidth,initHeight);
+  smooth(8);
+  
+  //for fullscreen testing
+  fullScreen();
+  initWidth = width;
+  initHeight = height;
+  snakeSize=60;
+  
+  
+  PUCurv = snakeBodyCurv;// same as snake curv
+  PUSize = snakeSize;
+  
+  
+  
   
   //surface.setResizeable(true);
   
@@ -333,17 +346,15 @@ void gamePlay()
   deather();//checks for deth of object
   
   if(!gameOver && play)
-  {    
-    mouse.update();
-    mouse.render();
-    
+  {
     snake.update();
     snake.render();
     
-    cherry.update();
-    cherry.render();
+    mouse.update();
+    mouse.render();
     
-       
+    cherry.update();
+    cherry.render();    
   }
 }
 
@@ -355,6 +366,7 @@ void hideAll()
   reset_button.hide();
   mute_button.hide();
   info_button.hide();
+  fScreen_button.hide();
   
   easy_button.hide();
   norm_button.hide();
@@ -369,7 +381,6 @@ void draw()
   //need to increase speed in another way
   background(0);
   
-  if(fScreen){}
   
   /***** removed just for testing purposes, will be added back in after game runs fine *****/
   if(menu == true)

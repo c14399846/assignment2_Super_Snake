@@ -21,7 +21,7 @@ class Fruit extends GameObjects implements Powerup
     stroke(cherryLine);
     rect(PUFruitX*PUSize,PUFruitY*PUSize,PUSize,PUSize,PUCurv);
     fill(255);stroke(255);
-    rect((PUFruitX*PUSize),(PUFruitY*PUSize),10,10,PUCurv);
+    rect((PUFruitX*PUSize),(PUFruitY*PUSize),PUSize/3,PUSize/3,PUCurv);
     fill(cherryCol);stroke(cherryLine);
     strokeWeight(3);
     line((PUFruitX*PUSize) + (PUSize*0.5),PUFruitY*PUSize,(PUFruitX*PUSize) + PUSize,(PUFruitY*PUSize)-(PUSize*0.5));
