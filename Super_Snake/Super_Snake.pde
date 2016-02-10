@@ -13,6 +13,7 @@ boolean menu = true;
 boolean mode = false;
 boolean modeSel = false;
 boolean muteVol = false;
+boolean fScreen = false;
 
 //mode system
 boolean easy = false;
@@ -39,13 +40,13 @@ int initWidth = 1200;
 
 int fps = 60;
 int snakeSize = 30; // snakes width and height
-int snakeHeadCurv = 5;// curvature of snakes head
+int snakeHeadCurv = 6;// curvature of snakes head
 int snakeBodyCurv = 10;// curvature of snakes body
 
 int difficulty = 0; /* 4 is easiest,1 is hardest, used in framecount */
 
 int imgBorder = 200;// border for images
-int bNum = 5;// number of buttons
+int bNum = 6;// number of buttons
 
 int PUCurv = snakeBodyCurv;// same as snake curv
 int PUSize = snakeSize;// same as snake curv
@@ -84,6 +85,7 @@ controlP5.Button mode_button;
 controlP5.Button reset_button;
 controlP5.Button mute_button;
 controlP5.Button info_button;
+controlP5.Button fScreen_button;
 
 //Gamemode / Difficulty buttons
 controlP5.Button easy_button;
@@ -113,6 +115,8 @@ void setup()
   surface.setSize(initWidth,initHeight);
   smooth(8); 
   
+  //surface.setResizeable(true);
+  
   minim = new Minim(this);
   snake = new Snake();
   mouse = new Mouse();
@@ -127,7 +131,7 @@ void setup()
   img = loadImage("data/gifs/menu_1000.gif");
   imgInfo = loadImage("data/gifs/info.PNG");
   
-  img.resize(initWidth-imgBorder,initHeight-imgBorder);// resizes depending on gamesize
+  img.resize(initWidth-imgBorder,initHeight-imgBorder);
   imgInfo.resize(initWidth-imgBorder,initHeight-imgBorder);
   
   cP5 = new ControlP5(this); //button class
@@ -135,17 +139,22 @@ void setup()
   cP5.setColorForeground(color(0,120,120));
   cP5.setColorActive(color(0,130,130));
   
-  menu_button = cP5.addButton("Main Menu" ,1,0,0,initWidth/bNum,buttonY);
-  play_button = cP5.addButton("Play" ,1,0,0,initWidth/bNum,buttonY);
-  mode_button = cP5.addButton("Game Mode" ,1,initWidth/bNum,0,initWidth/bNum,buttonY);
-  reset_button = cP5.addButton("Reset" ,1,initWidth/bNum * 2,0,initWidth/bNum,buttonY);
-  mute_button = cP5.addButton("Mute" ,1,initWidth/bNum*3,0,initWidth/bNum,buttonY);
-  info_button = cP5.addButton("Info" ,1,initWidth/bNum*4,0,initWidth/bNum,buttonY);
-  
-  easy_button = cP5.addButton("Easy" ,1,initWidth/bNum,buttonY,initWidth/bNum,buttonY);
-  norm_button = cP5.addButton("Normal" ,1,initWidth/bNum,buttonY*2,initWidth/bNum,buttonY);
-  hard_button = cP5.addButton("Hard" ,1,initWidth/bNum,buttonY*3,initWidth/bNum,buttonY);
-  xtrm_button = cP5.addButton("Extreme" ,1,initWidth/bNum,buttonY*4,initWidth/bNum,buttonY);
+  /* ****************ADD IN LATER */
+  //for(int i =0;i<bNum;i++)
+  //{
+    menu_button = cP5.addButton("Main Menu" ,1,0,0,initWidth/bNum,buttonY);
+    play_button = cP5.addButton("Play" ,1,0,0,initWidth/bNum,buttonY);
+    mode_button = cP5.addButton("Game Mode" ,1,initWidth/bNum,0,initWidth/bNum,buttonY);
+    reset_button = cP5.addButton("Reset" ,1,initWidth/bNum * 2,0,initWidth/bNum,buttonY);
+    mute_button = cP5.addButton("Mute" ,1,initWidth/bNum*3,0,initWidth/bNum,buttonY);
+    info_button = cP5.addButton("Info" ,1,initWidth/bNum*4,0,initWidth/bNum,buttonY);
+    fScreen_button = cP5.addButton("Full screen" ,1,initWidth/bNum*5,0,initWidth/bNum,buttonY);
+    
+    easy_button = cP5.addButton("Easy" ,1,initWidth/bNum,buttonY,initWidth/bNum,buttonY);
+    norm_button = cP5.addButton("Normal" ,1,initWidth/bNum,buttonY*2,initWidth/bNum,buttonY);
+    hard_button = cP5.addButton("Hard" ,1,initWidth/bNum,buttonY*3,initWidth/bNum,buttonY);
+    xtrm_button = cP5.addButton("Extreme" ,1,initWidth/bNum,buttonY*4,initWidth/bNum,buttonY);
+ // }
   
 }
 
@@ -191,6 +200,10 @@ void snakeSetup()
 //button system for the game
 void controlEvent(ControlEvent buttonPressed)
 {
+  if(buttonPressed.controller().getName().equals("Full sceen")){
+    fScreen = !fScreen;
+  }
+  
   if(buttonPressed.controller().getName().equals("Main Menu")){
     menu = true;
     Info = false;
@@ -355,6 +368,8 @@ void draw()
   frameRate(fps);
   //need to increase speed in another way
   background(0);
+  
+  if(fScreen){}
   
   /***** removed just for testing purposes, will be added back in after game runs fine *****/
   if(menu == true)
