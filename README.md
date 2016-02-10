@@ -3,6 +3,8 @@
 
 *****Images of the game are in the gameScreenshots folder*****
 
+*****YOU NEED TO SELECT A GAMEMODE TO START THE GAME*****
+
 Uses two powerups mouse and fruit(cherry), which increase snake size when eaten.
 
 Movement: W(up) A(left) S(down) D(right)
