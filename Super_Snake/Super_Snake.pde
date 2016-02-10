@@ -312,6 +312,7 @@ void menu()
   reset_button.show();
   mute_button.show();
   info_button.show();
+  fScreen_button.show();
   
 
   //the game requires you to choose a difficulty to play, resets to false at end of game
