@@ -1,7 +1,7 @@
 # assignment2_Super_Snake 
 # Class-based snake game made in processing(java).
 
-
+*****Images of the game are in the gameScreenshots folder*****
 
 Uses two powerups mouse and fruit(cherry), which increase snake size when eaten.
 
@@ -15,6 +15,6 @@ Death (mouse and cherry):
 	
 Images used are made by me, you can repurpose them if needed.
 
-
-The game is largely, but not fully dynamic, which means you can chaneg the game size
-and the game will still function as intended.
+The game is largely, but not fully, dynamic, which means you can change the game size
+and the game will still function as intended. Buttons and status text -might- look wonky,
+but are still understandable and don't block much of teh ui.
