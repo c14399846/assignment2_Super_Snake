@@ -1,6 +1,7 @@
 import java.util.*;//used for setSize function
 import controlP5.*;//used for buttons
 import ddf.minim.*;//used for sound
+//import gifAnimation.*;//add later
 
 /******
 Game : 
@@ -140,6 +141,11 @@ AudioPlayer sound_eat2;
 AudioPlayer sound_die;
 AudioPlayer sound_squeek;
 
+
+
+PImage img;
+
+
 void setup()
 {
   surface.setSize(initWidth,initHeight);
@@ -157,12 +163,12 @@ void setup()
   snakeSounds();
   
   
-  
   //snakeParts = createShape(RECT, 0, 0, 30, 30, snake.sP, snake.sP);
   
   //high scores txt
   hiscore = loadStrings("hiscore.txt");
   
+  img = loadImage("snakepixel_800.gif");
   
   cP5 = new ControlP5(this); //button class
   
@@ -328,6 +334,7 @@ void menu()
   reset_button.show();
   mute_button.show();
   info_button.show();
+  
 
   //the game requires you to choose a difficulty to play, resets to false at end of game
   mode = false;
@@ -363,7 +370,7 @@ void gamePlay()
   deather();
   
   if(!gameOver && play)
-  {
+  {    
     mouse.update();
     mouse.render();
     
@@ -403,13 +410,15 @@ void draw()
   if(menu == true)
   {
     //background(255);
-    menu(); 
+    menu();
+    //image(img,200,200);
   }
   
   if(mode == true)
   {  
     //background(255);
     gameMode();
+    //image(img,200,200);
   }
   
   if(play == true)
