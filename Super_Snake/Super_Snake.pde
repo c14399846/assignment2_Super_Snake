@@ -109,17 +109,16 @@ AudioPlayer sound_squeek;
 PImage img;
 PImage imgInfo;
 
-
 void setup()
 {
-  //surface.setSize(initWidth,initHeight);
+  surface.setSize(initWidth,initHeight);
   smooth(8);
   
   //for fullscreen testing
-  fullScreen();
+  /*fullScreen();
   initWidth = width;
   initHeight = height;
-  snakeSize=60;
+  snakeSize=60;*/
   
   
   PUCurv = snakeBodyCurv;// same as snake curv
